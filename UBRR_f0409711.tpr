@@ -1,0 +1,2568 @@
+@SQLT@ = SQL{            
+IF OBJECT_ID('tempdb..#Rep1_2') IS NOT NULL
+  DROP TABLE #Rep1_2
+
+CREATE TABLE #Rep1_2 (InstitutionID DSIDENTIFIER
+                    , ClientInstID  DSIDENTIFIER  
+                    , SecurityID    DSIDENTIFIER
+                    , AccountID     DSIDENTIFIER
+                    , InstName      VARCHAR(160)
+                    , INN           VARCHAR(15) 
+                    , KPP           DSFIELDNAME
+                    , OGRN          DSFIELDNAME
+                    , OKSM          VARCHAR(3)
+                    , SecType       DSACCNUMBER
+                    , RegNumber     DSLABEL   
+                    , ISIN          VARCHAR(20) 
+                    , FundCode      DSBRIEFNAME
+                    , Nominal       DSNOMINAL
+                    , TypeAcc       VARCHAR(10)
+                    , Num           DSBIGMONEY
+                    , NumAll        DSBIGMONEY
+                    , NumZalog      DSBIGMONEY
+                    , NumTorgDepo   DSBIGMONEY
+                    , OgranKorpD    DSBIGMONEY
+                    , Zapret        DSBIGMONEY
+                    , Arest         DSBIGMONEY
+                    , CodeAccOwner  VARCHAR(10)
+                    , OKSMAccOwner  VARCHAR(3)
+                    , RegistInstID  DSIDENTIFIER 
+                    , OrgName       VARCHAR(160)
+                    , OrgType       VARCHAR(1)
+                    , OrgINN        VARCHAR(15) 
+                    , OrgKPP        DSFIELDNAME
+                    , OrgOGRN       DSFIELDNAME
+                    , OrgOKSM       VARCHAR(3)
+                    , NumLicen      VARCHAR(20)  
+                                    )
+
+IF OBJECT_ID('tempdb..#Rep1_3') IS NOT NULL
+  DROP TABLE #Rep1_3
+
+ CREATE TABLE #Rep1_3 (InstitutionID DSIDENTIFIER
+                     , SecurityID    DSIDENTIFIER
+                     , PortfolioID   DSIDENTIFIER
+                     , InstName      VARCHAR(160)
+                     , INN           VARCHAR(15) 
+                     , KPP           DSFIELDNAME
+                     , OGRN          DSFIELDNAME
+                     , OKSM          VARCHAR(3)
+                     , SecType       DSACCNUMBER
+                     , RegNumber     DSLABEL   
+                     , ISIN          VARCHAR(20) 
+                     , FundCode      DSBRIEFNAME
+                     , Nominal       DSNOMINAL                                 
+                     , NumAll        DSBIGMONEY
+                     , NumBal        DSBIGMONEY
+                     , NumNeBal      DSBIGMONEY
+                     , NumZaem       DSBIGMONEY
+                     , NumNoOb       DSBIGMONEY
+                     , NumDolg       DSBIGMONEY
+                     , NumErr        DSBIGMONEY
+                     , NumOther      DSBIGMONEY
+                     , NumDepoUpr    DSBIGMONEY
+                     , NumKazn       DSBIGMONEY
+                     , NumZalog      DSBIGMONEY
+                     , NumEmission   DSBIGMONEY
+                     -->> 19.03.2018 UBRR Verzhbickiy [18-184]
+                     , NumObrAll        DSBIGMONEY
+                     , NumObrZalog      DSBIGMONEY
+                     , NumObrTorgDepo   DSBIGMONEY
+                     , NumObrOgranKorpD DSBIGMONEY
+                     , NumObrZapret     DSBIGMONEY
+                     , NumObrArest      DSBIGMONEY                                                                                    
+                     --<< 19.03.2018 UBRR Verzhbickiy [18-184]                     
+                     , OrgInstID     DSIDENTIFIER
+                     , OrgName       VARCHAR(160)
+                     , OrgType       VARCHAR(1)
+                     , OrgINN        VARCHAR(15) 
+                     , OrgKPP        DSFIELDNAME
+                     , OrgOGRN       DSFIELDNAME
+                     , OrgOKSM       VARCHAR(3)
+                     , NumLicen      VARCHAR(20)  
+                      )
+                                  
+IF OBJECT_ID('tempdb..#Rep1_4') IS NOT NULL
+  DROP TABLE #Rep1_4
+
+CREATE TABLE #Rep1_4 (InstitutionID DSIDENTIFIER
+                    , SecurityID    DSIDENTIFIER
+                    , PortfolioID   DSIDENTIFIER
+                    , InstName      VARCHAR(160)
+                    , INN           VARCHAR(15) 
+                    , OGRN          DSFIELDNAME
+                    , KPP           DSFIELDNAME                                  
+                    , OKSM          VARCHAR(3)
+                    , OKVED         DSFIELDNAME     -- 19.03.2018 UBRR Verzhbickiy [18-184]              
+                    , SecType       DSACCNUMBER
+                    , RegNumber     DSLABEL   
+                    , ISIN          VARCHAR(20) 
+                    , FundCode      DSBRIEFNAME     -- 19.03.2018 UBRR Verzhbickiy [18-184] 
+                    , SecNum        DSIDENTIFIER    -- 19.03.2018 UBRR Verzhbickiy [18-184]    
+                    , Nominal       DSNOMINAL       -- 19.03.2018 UBRR Verzhbickiy [18-184]                                         
+                    , SumVlozh      DSMONEY
+                    , AccBrief      VARCHAR(20)
+                    , NKD           DSMONEY         -- 19.03.2018 UBRR Verzhbickiy [18-184]    
+                    , RevalOtr      DSMONEY         -- 19.03.2018 UBRR Verzhbickiy [18-184]                                                                           
+                    , Reval         DSMONEY         -- 19.03.2018 UBRR Verzhbickiy [18-184]  
+                    , Portf         DSACCNUMBER     -- 19.03.2018 UBRR Verzhbickiy [18-184]                                                                                                   
+                    , KatKach       VARCHAR(30)     -- 19.03.2018 UBRR Verzhbickiy [18-184]                                                                                                
+                    , Reserv        DSMONEY         -- 19.03.2018 UBRR Verzhbickiy [18-184]                        
+                      )
+
+IF OBJECT_ID('tempdb..#Rep3') IS NOT NULL
+  DROP TABLE #Rep3
+
+CREATE TABLE #Rep3 (InstitutionID DSIDENTIFIER
+                  , SecurityID    DSIDENTIFIER
+                  , PortfolioID   DSIDENTIFIER
+                  , InstName      VARCHAR(160)
+                  , INN           VARCHAR(15) 
+                  , KPP           DSFIELDNAME
+                  , OGRN          DSFIELDNAME
+                  , OKSM          VARCHAR(3)
+                  , SecType       DSACCNUMBER
+                  , RegNumber     DSLABEL   
+                  , ISIN          VARCHAR(20) 
+                  , FundCode      DSBRIEFNAME
+                  , Nominal       DSNOMINAL
+                  , Repo          DSBIGMONEY
+                  , RepoZaem      DSBIGMONEY
+                  , RepoObr       DSBIGMONEY
+                  , RepoObrZaem   DSBIGMONEY
+                  , DoverUpr      DSBIGMONEY
+                  , DoverUprPrav  DSBIGMONEY
+                  , ZalogKO       DSBIGMONEY
+                  , Zalog3Lic     DSBIGMONEY
+                  , Zalog         DSBIGMONEY
+                  , DepoAcc       DSBIGMONEY
+                  , OgranKorpD    DSBIGMONEY
+                  , Zapret        DSBIGMONEY
+                  , Arest         DSBIGMONEY
+                  , Comment       DSCOMMENT
+                    )           
+
+DECLARE @Date   DSOPERDAY                                   
+                  
+SELECT @Date = %DATE!  
+            
+SELECT FILENAME   = 'UBRR_F0409711_' + SUBSTRING(CONVERT(VARCHAR(8),@Date,112),7,2) +
+                                     + SUBSTRING(CONVERT(VARCHAR(8),@Date,112),5,2) +
+                                     + SUBSTRING(CONVERT(VARCHAR(8),@Date,112),1,4) + '.xls'                                                                                                                
+}
+
+@SQL_3@ = SQL{
+-----------------------------
+--   711 форма Раздел 3    --
+-----------------------------
+DECLARE @KvitID DSIDENTIFIER
+      , @Date   DSOPERDAY   
+      , @Portf5Kat DSIDENTIFIER                                
+                  
+SELECT @Date = %DATE! 
+SELECT @Date = @Date - 1    
+
+SELECT @KvitID = 10000000000
+
+-- Заполним параметры дял ВУЗа     
+IF EXISTS ( SELECT 'X'
+              FROM [dbo].[tInstitution] 
+             WHERE InstitutionID = 2000
+               AND Brief LIKE '\%ВУЗ-БАНК\%')
+  SELECT @KvitID = 19   
+  
+--Найдем портфель 5-ой категории
+SELECT @Portf5Kat = PortfolioID
+  FROM tPortfolio 
+ WHERE Brief LIKE '5\%категория'  
+
+
+INSERT INTO #Rep3 (InstitutionID 
+                 , SecurityID  
+                 , PortfolioID  
+                 , InstName     
+                 , INN             
+                 , RegNumber     
+                 , ISIN         
+                 , Repo     
+                  )
+SELECT s.InstitutionID    
+     , s.SecurityID   
+     , kp.PortfolioID
+     , i.Name
+     , i.INN                               
+     , s.RegNumber
+     , s.Number   
+     , kt.Num
+  FROM tKvitTotal kt
+ INNER JOIN tKvitPosition kp
+    ON kp.KvitPositionID = kt.KvitPositionID
+ INNER JOIN tPortfolio portf
+    ON portf.PortfolioID = kp.PortfolioID
+ INNER JOIN tSecurity s
+    ON s.SecurityID = kp.SecurityID   
+ INNER JOIN tInstitution i
+    ON i.InstitutionID = s.InstitutionID   
+ WHERE kt.Date = @Date 
+   AND kt.Num > 0
+   AND kt.Type = 14     
+   AND kp.KvitID = @KvitID          
+   AND kp.PortfolioID <> @Portf5Kat
+        
+-- Сделки обратного РЕПО                      
+INSERT INTO #Rep3 (InstitutionID 
+                 , SecurityID  
+                 , PortfolioID  
+                 , InstName     
+                 , INN               
+                 , RegNumber     
+                 , ISIN         
+                 , RepoObr 
+                 , RepoObrZaem                    
+                  )     
+SELECT i.InstitutionID
+     , s.SecurityID
+     , d1.LtPortfolioID 
+     , i.Name
+     , i.INN
+     , s.RegNumber
+     , s.Number  
+     , SUM(CASE WHEN (d1.CalcNKS & 256) / 256 = 0 THEN d1.Num ELSE 0 END) AS RepoObr
+     , SUM(CASE WHEN (d1.CalcNKS & 256) / 256 = 1 THEN d1.Num ELSE 0 END) AS RepoObrZaem                                                 
+  FROM tDealRelation dr 
+ INNER JOIN tDeal d1
+    ON d1.DealID = dr.ParentID
+ INNER JOIN tDealTransact dt1
+    ON dt1.DealID = d1.DealID
+   AND dt1.TransactType = 4
+ INNER JOIN tDeal d2
+    ON d2.DealID = dr.ChildID
+ INNER JOIN tDealTransact dt2
+    ON dt2.DealID = d2.DealID
+   AND dt2.TransactType = 14
+ INNER JOIN tSecurity s
+    ON s.SecurityID = d1.SecurityID
+ INNER JOIN tInstitution i
+    ON i.InstitutionID = s.InstitutionID      
+ WHERE dt1.Date <= @Date
+   AND dt2.Date > @Date
+   AND d1.ContractFlag = 34
+   AND d2.ContractFlag = 35
+   AND dr.RelType = 35
+   AND d1.LtClientID = 2000
+   AND d1.DealType = 0
+ GROUP BY i.InstitutionID, s.SecurityID, d1.LtPortfolioID, i.Name, i.INN, s.RegNumber, s.Number                   
+                                                           
+  
+--Проставим КПП, ОГРН и пр.
+UPDATE r SET KPP = ISNULL((SELECT kpp.Reuters
+                             FROM [dbo].[tReuters] kpp
+                            WHERE kpp.InstitutionID = r.InstitutionID
+                              AND kpp.TradingSysID = 2    
+                              AND kpp.isdefault = 1), '')
+           , OGRN = ISNULL((SELECT ogrn.Reuters    
+                              FROM [dbo].[tReuters] ogrn
+                             WHERE ogrn.InstitutionID = r.InstitutionID
+                               AND ogrn.TradingSysID = 1018     
+                               AND ogrn.isdefault = 1), '')     
+           , OKSM = (SELECT c.CodeISO 
+                       FROM tCountry c
+                      INNER JOIN tInstitution i
+                         ON i.CountryID =  c.CountryID
+                      WHERE i.InstitutionID = r.InstitutionID) 
+           , FundCode = ISNULL((SELECT f.ISONumber
+                                  FROM tFund f
+                                 INNER JOIN tSecurity s
+                                    ON s.NominalFundID = f.FundID 
+                                 WHERE s.SecurityID = r.SecurityID), '')   
+           , SecType = ISNULL((SELECT oc.Brief
+                                 FROM tObjClsRelation ocr
+                                INNER JOIN tObjClassifier oc
+                                   ON oc.ObjClassifierID = ocr.ObjClassifierID
+                                INNER JOIN tObjClassifier parent 
+                                   ON parent.ObjClassifierID = oc.ParentID         
+                                WHERE ocr.ObjectID = r.SecurityID
+                                  AND parent.Brief = 'Классы ценных бумаг'), '') 
+           , DepoAcc = ISNULL((SELECT kt1.Num
+                                 FROM [dbo].[tKvitTotal] kt1
+                                INNER JOIN [dbo].[tKvitPosition] kp1 
+                                   ON kp1.KvitPositionID = kt1.KvitPositionID 
+                                  AND kt1.Type IN (1)
+                               -- INNER JOIN tPortfolio portf
+                               --    ON portf.PortfolioID = kp1.PortfolioID
+                                WHERE kt1.Date = @Date 
+                                  AND kp1.SecurityID = r.SecurityID
+                                  AND kp1.PortfolioID = r.PortfolioID
+                                  AND kp1.PortfolioID = @Portf5Kat
+                                --  AND portf.Brief = '5-я категория'
+                                  ) ,0)                                                                          
+  FROM #Rep3 r 
+
+   
+ --Вычисление номинала
+DELETE FROM pAPI_Security_IDDate 
+ WHERE spid = @@SPID
+
+DELETE FROM pAPI_Security_Nominal 
+ WHERE spid = @@SPID
+
+INSERT INTO pAPI_Security_IDDate
+SELECT @@SPID, SecurityID, @Date
+  FROM #Rep3
+
+EXEC API_Sec_FindListNominalByDate
+
+UPDATE r SET Nominal = sn.Nominal
+  FROM #Rep3 r 
+ INNER JOIN pAPI_Security_Nominal sn
+    ON sn.SecurityID = r.SecurityID
+   AND sn.SPID = @@SPID
+   
+
+-- Количество в РЕПО займ   
+UPDATE r SET Repo = Repo - repo.RepoZaem          
+           , RepoZaem = repo.RepoZaem
+  FROM #Rep3 r
+ INNER JOIN (SELECT d1.SecurityID
+                  , d1.LtPortfolioID 
+                  , SUM(d1.Num) AS RepoZaem                                                                       
+               FROM tDealRelation dr 
+              INNER JOIN tDeal d1
+                 ON d1.DealID = dr.ParentID
+              INNER JOIN tDealTransact dt1
+                 ON dt1.DealID = d1.DealID
+                AND dt1.TransactType = 4
+              INNER JOIN tDeal d2
+                 ON d2.DealID = dr.ChildID
+              INNER JOIN tDealTransact dt2
+                 ON dt2.DealID = d2.DealID
+                AND dt2.TransactType = 14
+              WHERE dt1.Date < @Date
+                AND dt2.Date >= @Date
+                AND d1.ContractFlag = 34
+                AND d2.ContractFlag = 35
+                AND dr.RelType = 35
+                AND d1.LtClientID = 2000
+                AND (d1.CalcNKS & 256) / 256 = 1
+                AND d1.DealType = 1
+              GROUP BY d1.SecurityID, d1.LtPortfolioID ) repo 
+    ON repo.SecurityID = r.SecurityID
+   AND repo.LtPortfolioID = r.PortfolioID 
+   
+
+-- Результирующий селект
+IF EXISTS (SELECT 'X'
+             FROM #Rep3)
+  SELECT MAX(InstName) AS InstName
+       , MAX(INN) AS INN        
+       , MAX(KPP) AS KPP 
+       , MAX(OGRN) AS OGRN
+       , MAX(OKSM) AS OKSM 
+       , MAX(SecType) AS SecType 
+       , MAX(RegNumber) AS RegNumber
+       , MAX(ISIN) AS ISIN  
+       , MAX(FundCode) AS FundCode 
+       , MAX(Nominal) AS Nominal 
+       , SUM(Repo) AS Repo  
+       , SUM(RepoZaem) AS RepoZaem 
+       , SUM(RepoObr) AS RepoObr
+       , SUM(RepoObrZaem) AS RepoObrZaem 
+       , SUM(DoverUpr) AS DoverUpr
+       , SUM(DoverUprPrav) AS DoverUprPrav
+       , SUM(ZalogKO) AS ZalogKO
+       , SUM(Zalog3Lic) AS Zalog3Lic
+       , SUM(Zalog) AS Zalog 
+       , SUM(DepoAcc) AS DepoAcc
+       , SUM(OgranKorpD) AS OgranKorpD 
+       , SUM(Zapret) AS Zapret
+       , SUM(Arest) AS Arest
+       , MAX(Comment) AS Comment
+    FROM #Rep3
+   GROUP BY SecurityID 
+   ORDER BY 1 
+ELSE     
+  SELECT NULL AS InstName
+       , NULL AS INN 
+       , NULL AS KPP 
+       , NULL AS OGRN
+       , NULL AS OKSM 
+       , NULL AS SecType 
+       , NULL AS RegNumber
+       , NULL AS ISIN  
+       , NULL AS FundCode 
+       , 0 AS Nominal 
+       , 0 AS Repo  
+       , 0 AS RepoZaem 
+       , 0 AS RepoObr
+       , 0 AS RepoObrZaem 
+       , 0 AS DoverUpr
+       , 0 AS DoverUprPrav
+       , 0 AS ZalogKO
+       , 0 AS Zalog3Lic
+       , 0 AS Zalog 
+       , 0 AS DepoAcc
+       , 0 AS OgranKorpD 
+       , 0 AS Zapret
+       , 0 AS Arest
+       , NULL AS Comment
+    
+
+}  
+      
+@SQL_1_4@ = SQL{ 
+----------------------------
+--  711 форма Раздел 1.4  -- 
+----------------------------
+DECLARE @KvitID DSIDENTIFIER
+      , @Date DSOPERDAY
+      , @Portf5Kat DSIDENTIFIER 
+
+SELECT @KvitID = 10000000000
+     , @Date = %DATE! 
+
+SELECT @Date = @Date - 1   
+
+--Найдем портфель 5-ой категории
+SELECT @Portf5Kat = PortfolioID
+  FROM tPortfolio 
+ WHERE Brief LIKE '5\%категория' 
+
+-- Заполним параметры дял ВУЗа     
+IF EXISTS ( SELECT 'X'
+              FROM [dbo].[tInstitution] 
+             WHERE InstitutionID = 2000
+               AND Brief LIKE '\%ВУЗ-БАНК\%')
+  SELECT @KvitID = 19         
+
+ INSERT INTO #Rep1_4 (InstitutionID 
+                    , SecurityID    
+                    , InstName     
+                    , INN          
+                    , KPP          
+                    , OGRN         
+                    , OKSM    
+                    , OKVED      
+                    , SecType       
+                    , RegNumber     
+                    , ISIN    
+                    , FundCode
+                    , SecNum
+                    , SumVlozh     
+                    , AccBrief 
+                    , NKD
+                    , RevalOtr
+                    , Reval
+                    , Portf
+                     )
+SELECT s.InstitutionID    
+     , s.SecurityID   
+     , i.Name
+     , i.INN
+     , ISNULL(kpp.Reuters,'') AS KPP
+     , ISNULL(ogrn.Reuters,'') AS OGRN
+     , c.CodeISO      
+     , ISNULL(okved.Reuters,'') AS OKVED     
+     , ISNULL((SELECT oc.Brief
+                 FROM tObjClsRelation ocr
+                INNER JOIN tObjClassifier oc
+                   ON oc.ObjClassifierID = ocr.ObjClassifierID
+                INNER JOIN tObjClassifier parent 
+                   ON parent.ObjClassifierID = oc.ParentID         
+                WHERE ocr.ObjectID = s.SecurityID
+                  AND parent.Brief = 'Классы ценных бумаг'), '') AS TypeSec                                     
+     , s.RegNumber
+     , s.Number    
+     , f.ISONumber
+     , kt.Num
+     , (kt.BuyQty + kt.BuyCoupon + kt.BuyCosts +/*kt.Reval +*/ kt.GrowPremium + kt.GrowCoupon + kt.GrowDiscount) * ISNULL(cr.Course,1) + ISNULL((SELECT SUM(kt1.Reval)
+                                                                                                                                                   FROM [dbo].[tKvitTotal] kt1
+                                                                                                                                                  INNER JOIN [dbo].[tKvitPosition] kp1 
+                                                                                                                                                     ON kp1.KvitPositionID = kt1.KvitPositionID 
+                                                                                                                                                    AND kt1.Type IN (1,6)
+                                                                                                                                                  WHERE kt1.Date = @Date 
+                                                                                                                                                    AND kp1.SecurityID = kp.SecurityID
+                                                                                                                                                    AND kp1.PortfolioID = kp.PortfolioID) ,0)   
+     , ISNULL((SELECT tr.Brief
+                 FROM [dbo].[tInstrRes] tir
+                INNER JOIN [dbo].[tResource] tr
+                   ON tir.ResourceID = tr.ResourceID
+                INNER JOIN [dbo].[tLinkedAccType] la
+                   ON la.LinkedAccTypeID = tir.AccType    
+                WHERE tir.FormulaID = kp.SecurityID
+                  AND tir.PortfolioID = kp.PortfolioID
+                  AND ((la.Brief = 'ВложЦБ' AND portf.Brief <> '6 - категория')
+                    OR (la.Brief = 'ИнвестПИФ' AND portf.Brief = '6 - категория')
+                      )
+                  
+                  ), '-') 
+     , kt.GrowCoupon 
+     , CASE WHEN kt.Reval < 0 THEN kt.Reval ELSE 0 END
+     , CASE WHEN kt.Reval > 0 THEN kt.Reval ELSE 0 END
+     , portf.Brief 
+  FROM tKvitTotal kt
+ INNER JOIN tKvitPosition kp
+    ON kp.KvitPositionID = kt.KvitPositionID
+ INNER JOIN tPortfolio portf
+    ON portf.PortfolioID = kp.PortfolioID
+ INNER JOIN tSecurity s
+    ON s.SecurityID = kp.SecurityID   
+ INNER JOIN tFund f 
+    ON f.FundID = s.NominalFundID   
+ INNER JOIN tInstitution i
+    ON i.InstitutionID = s.InstitutionID   
+  LEFT JOIN [dbo].[tReuters] kpp
+    ON i.InstitutionID = kpp.InstitutionID
+   AND kpp.TradingSysID = 2    
+   AND kpp.isdefault = 1  
+  LEFT JOIN [dbo].[tReuters] ogrn
+    ON i.InstitutionID = ogrn.InstitutionID
+   AND ogrn.TradingSysID = 1018     
+   AND ogrn.isdefault = 1  
+  LEFT JOIN [dbo].[tReuters] okved
+    ON i.InstitutionID = okved.InstitutionID
+   AND okved.TradingSysID = 8   
+   AND okved.isdefault = 1       
+  LEFT JOIN tCountry c
+    ON c.CountryID = i.CountryID
+  LEFT JOIN tCurrencyRate  cr
+    ON cr.ObjectID = s.NominalFundID
+   AND cr.Date_Time = kt.Date  
+ WHERE kt.Date = @Date 
+   AND kt.Num > 0
+   AND kt.Type = 1
+   --AND portf.Brief <> '5-я категория'
+   AND portf.PortfolioID <> @Portf5Kat
+   AND kp.KvitID = @KvitID                              
+   
+-- Удалим банкротов
+DELETE FROM #Rep1_4   
+ WHERE AccBrief LIKE '50505\%' 
+ 
+--Для след. категорий заполнять 105 графу не нужно   
+UPDATE r SET OKVED = ''
+  FROM #Rep1_4 r
+ WHERE SecType IN ('BON2','BON5','SHS7','SHS8')    
+
+ --Вычисление номинала
+DELETE FROM pAPI_Security_IDDate 
+ WHERE spid = @@SPID
+
+DELETE FROM pAPI_Security_Nominal 
+ WHERE spid = @@SPID
+
+INSERT INTO pAPI_Security_IDDate
+SELECT @@SPID, SecurityID, @Date
+  FROM #Rep1_4
+
+EXEC API_Sec_FindListNominalByDate
+
+UPDATE r SET Nominal = sn.Nominal
+  FROM #rep1_4 r 
+ INNER JOIN pAPI_Security_Nominal sn
+    ON sn.SecurityID = r.SecurityID
+   AND sn.SPID = @@SPID 
+ 
+ 
+-- Категория качества
+DELETE pAPI_Inst_ListID
+  FROM pAPI_Inst_ListID  #M_ROWLOCK_INDEX(XPKpAPI_Inst_ListID)
+ WHERE spid = @@SPID
+
+INSERT pAPI_Inst_ListID
+SELECT @@SPID
+     , InstitutionID
+  FROM #rep1_4               
+ GROUP BY InstitutionID              
+
+ 
+EXEC FCD_TRE_Inst_FndLstQualForDate
+     @Date       = @Date
+   , @GroupBrief = 'Резерв232'
+
+-- берем наименование группы риска эммитента, если не нашли классиф на ЦБ и ГФИ     
+UPDATE #rep1_4 
+   SET KatKach = p.Name
+     , Reserv = p.Norm      
+  FROM #rep1_4     t     
+ INNER JOIN tTRE_Security_Sync     s   
+    ON s.SecurityID = t.SecurityID    
+ INNER JOIN pAPI_Inst_ListQuality  p   
+    ON p.spid          = @@SPID
+   AND p.InstitutionID = s.InstitutionID
+   AND p.Date          = (SELECT MAX(pp.Date)
+                            FROM pAPI_Inst_ListQuality  pp  
+                           WHERE pp.spid          = @@SPID
+                             AND pp.InstitutionID = s.InstitutionID
+                             AND pp.Date         <= @Date
+                          )
+
+-- По умолчанию ставим 1 категорию
+UPDATE #rep1_4  
+   SET KatKach = 'I группа риска'
+     , Reserv   = 0      
+  FROM #rep1_4                t   #M_NOLOCK   
+ WHERE ISNULL(t.KatKach, '') = ''  
+
+-- Посчитаем резерв 
+UPDATE #rep1_4  
+   SET Reserv   = Reserv /100 * SumVlozh
+  FROM #rep1_4                t   #M_NOLOCK    
+    
+    
+-- Результирующий селект
+IF EXISTS(SELECT 'X'
+            FROM #Rep1_4)   
+   SELECT InstName
+        , INN
+        , OGRN
+        , KPP                          
+        , OKSM
+        , OKVED
+        , SecType
+        , RegNumber
+        , ISIN
+        , FundCode
+        , SecNum
+        , Nominal
+        , ROUND(SumVlozh/1000, 2) AS SumVlozh
+        , SUBSTRING(AccBrief,1,5) AS AccBrief
+        , NKD 
+        , ROUND(RevalOtr/1000, 2) AS RevalOtr
+        , ROUND(Reval/1000, 2) AS Reval
+        , Portf
+        , KatKach
+        , ROUND(Reserv/1000, 2) AS Reserv
+     FROM #Rep1_4
+ELSE
+   SELECT NULL AS InstName
+        , NULL AS INN
+        , NULL AS OGRN
+        , NULL AS KPP                          
+        , NULL AS OKSM
+        , NULL AS OKVED        
+        , NULL AS SecType
+        , NULL AS RegNumber
+        , NULL AS ISIN
+        , NULL AS FundCode
+        , 0 AS SecNum 
+        , 0 AS Nominal
+        , 0 AS SumVlozh
+        , NULL AS AccBrief
+        , 0 AS NKD 
+        , 0 AS RevalOtr
+        , 0 AS Reval
+        , NULL AS Portf
+        , NULL AS KatKach
+        , 0 AS Reserv
+}     
+
+@SQL_1_3@ = SQL{ 
+----------------------------
+--  711 форма Раздел 1.3  -- 
+----------------------------
+DECLARE @KvitID DSIDENTIFIER
+      , @Date   DSOPERDAY
+      , @Portf5Kat DSIDENTIFIER
+
+SELECT @KvitID = 10000000000
+     , @Date = %DATE! 
+     
+SELECT @Date = @Date - 1         
+
+--Найдем портфель 5-ой категории
+SELECT @Portf5Kat = PortfolioID
+  FROM tPortfolio 
+ WHERE Brief LIKE '5\%категория'
+
+-- Заполним параметры для ВУЗа     
+IF EXISTS ( SELECT 'X'
+              FROM [dbo].[tInstitution] 
+             WHERE InstitutionID = 2000
+               AND Brief LIKE '\%ВУЗ-БАНК\%')
+  SELECT @KvitID = 19   
+
+  INSERT INTO #Rep1_3 (InstitutionID 
+                     , SecurityID   
+                     , PortfolioID 
+                     , InstName     
+                     , INN          
+                     , KPP          
+                     , OGRN         
+                     , OKSM          
+                     , SecType       
+                     , RegNumber     
+                     , ISIN         
+                     , FundCode  
+                     , NumBal
+                     , NumNeBal 
+                     , OrgInstID  
+                      )
+SELECT s.InstitutionID    
+     , s.SecurityID  
+     , kp.PortfolioID 
+     , i.Name
+     , i.INN
+     , ISNULL(kpp.Reuters,'') AS KPP
+     , ISNULL(ogrn.Reuters,'') AS OGRN
+     , c.CodeISO      
+     , ISNULL((SELECT oc.Brief
+                 FROM tObjClsRelation ocr
+                INNER JOIN tObjClassifier oc
+                   ON oc.ObjClassifierID = ocr.ObjClassifierID
+                INNER JOIN tObjClassifier parent 
+                   ON parent.ObjClassifierID = oc.ParentID         
+                WHERE ocr.ObjectID = s.SecurityID
+                  AND parent.Brief = 'Классы ценных бумаг'), '') AS TypeSec                                      
+     , s.RegNumber
+     , s.Number   
+     , f.ISONumber       
+     , CASE WHEN portf.PortfolioID = @Portf5Kat/*'5-я категория'*/ THEN 0
+            ELSE kt.Num END
+     , CASE WHEN portf.PortfolioID = @Portf5Kat /*'5-я категория'*/ THEN kt.Num
+            ELSE 0 END
+     , (SELECT InstitutionID 
+          FROM tInstitution 
+         WHERE Brief = 'НКО АО НРД')       
+  FROM tKvitTotal kt
+ INNER JOIN tKvitPosition kp
+    ON kp.KvitPositionID = kt.KvitPositionID
+ INNER JOIN tPortfolio portf
+    ON portf.PortfolioID = kp.PortfolioID
+ INNER JOIN tSecurity s
+    ON s.SecurityID = kp.SecurityID   
+ INNER JOIN tFund f
+    ON f.FundID = s.NominalFundID
+ INNER JOIN tInstitution i
+    ON i.InstitutionID = s.InstitutionID   
+  LEFT JOIN [dbo].[tReuters] kpp
+    ON i.InstitutionID = kpp.InstitutionID
+   AND kpp.TradingSysID = 2    
+   AND kpp.isdefault = 1  
+  LEFT JOIN [dbo].[tReuters] ogrn
+    ON i.InstitutionID = ogrn.InstitutionID
+   AND ogrn.TradingSysID = 1018     
+   AND ogrn.isdefault = 1  
+  LEFT JOIN tCountry c
+    ON c.CountryID = i.CountryID 
+ WHERE kt.Date = @Date 
+   AND kt.Num > 0
+   AND kt.Type IN (1)   
+   AND kp.KvitID = @KvitID 
+   AND NOT EXISTS (SELECT tr.Brief
+                     FROM [dbo].[tInstrRes] tir
+                    INNER JOIN [dbo].[tResource] tr
+                       ON tir.ResourceID = tr.ResourceID
+                    INNER JOIN [dbo].[tLinkedAccType] la
+                       ON la.LinkedAccTypeID = tir.AccType   
+                      AND la.Brief = 'ВложЦБ'   
+                    WHERE tir.FormulaID = kp.SecurityID
+                      AND tir.PortfolioID = kp.PortfolioID
+                      AND tr.Brief LIKE '50505\%')                                 
+   
+ --Вычисление номинала
+DELETE FROM pAPI_Security_IDDate 
+ WHERE spid = @@SPID
+
+DELETE FROM pAPI_Security_Nominal 
+ WHERE spid = @@SPID
+
+INSERT INTO pAPI_Security_IDDate
+SELECT @@SPID, SecurityID, @Date
+  FROM #Rep1_3
+
+EXEC API_Sec_FindListNominalByDate
+
+UPDATE r SET Nominal = sn.Nominal
+  FROM #Rep1_3 r 
+ INNER JOIN pAPI_Security_Nominal sn
+    ON sn.SecurityID = r.SecurityID
+   AND sn.SPID = @@SPID
+
+UPDATE r SET NumAll = NumBal + NumNeBal + NumZaem + NumNoOb + NumDolg + NumErr + NumOther
+           , NumObrAll = NumObrZalog + NumObrTorgDepo + NumObrOgranKorpD + NumObrZapret + NumObrArest   
+  FROM #Rep1_3 r 
+
+--Проставим КПП, ОГРН и пр.   для регистратора
+UPDATE r SET OrgKPP = ISNULL((SELECT kpp.Reuters
+                             FROM [dbo].[tReuters] kpp
+                            WHERE kpp.InstitutionID = r.OrgInstID
+                              AND kpp.TradingSysID = 2    
+                              AND kpp.isdefault = 1), '')
+           , OrgOGRN = ISNULL((SELECT ogrn.Reuters    
+                              FROM [dbo].[tReuters] ogrn
+                             WHERE ogrn.InstitutionID = r.OrgInstID
+                               AND ogrn.TradingSysID = 1018     
+                               AND ogrn.isdefault = 1), '')     
+           , OrgOKSM = (SELECT c.CodeISO 
+                       FROM tCountry c
+                      INNER JOIN tInstitution i
+                         ON i.CountryID =  c.CountryID
+                      WHERE i.InstitutionID = r.OrgInstID)                            
+           , OrgName = i.Name  
+           , OrgINN = i.INN   
+           , OrgType = 'К'
+           , NumLicen = ia.RegSeries                                                                                
+  FROM #Rep1_3 r      
+ INNER JOIN tInstitution i
+    ON r.OrgInstID = i.InstitutionID    
+  LEFT JOIN tInstAttr ia
+    ON ia.InstitutionID = i.InstitutionID    
+ 
+  
+   -- Результирующий селект
+IF EXISTS (SELECT 'X'
+             FROM #Rep1_3)
+   SELECT MAX(InstName) AS InstName
+        , MAX(INN) AS INN
+        , MAX(KPP) AS KPP 
+        , MAX(OGRN) AS OGRN  
+        , MAX(OKSM) AS OKSM      
+        , MAX(SecType) AS SecType 
+        , MAX(RegNumber) AS RegNumber 
+        , MAX(ISIN) AS ISIN     
+        , MAX(FundCode) AS FundCode 
+        , MAX(Nominal) AS Nominal 
+        , SUM(NumAll) AS NumAll  
+        , SUM(NumBal) AS NumBal  
+        , SUM(NumNeBal) AS NumNeBal 
+        , SUM(NumZaem) AS NumZaem  
+        , SUM(NumNoOb) AS NumNoOb   
+        , SUM(NumDolg) AS NumDolg   
+        , SUM(NumErr) AS NumErr   
+        , SUM(NumOther) AS NumOther  
+        , SUM(NumDepoUpr) AS NumDepoUpr  
+        , SUM(NumKazn) AS NumKazn    
+        , SUM(NumZalog) AS NumZalog  
+        , SUM(NumEmission) AS NumEmission  
+        , SUM(NumObrAll) AS NumObrAll       
+        , SUM(NumObrZalog) AS NumObrZalog     
+        , SUM(NumObrTorgDepo) AS NumObrTorgDepo  
+        , SUM(NumObrOgranKorpD) AS NumObrOgranKorpD
+        , SUM(NumObrZapret) AS NumObrZapret    
+        , SUM(NumObrArest) AS NumObrArest     
+        , MAX(OrgName) AS OrgName    
+        , MAX(OrgType) AS OrgType   
+        , MAX(OrgINN) AS OrgINN  
+        , MAX(OrgKPP) AS OrgKPP   
+        , MAX(OrgOGRN) AS OrgOGRN
+        , MAX(OrgOKSM) AS OrgOKSM
+        , MAX(NumLicen) AS NumLicen
+     FROM #Rep1_3
+    GROUP BY SecurityID   
+ELSE 
+   SELECT NULL AS InstName
+        , NULL AS INN
+        , NULL AS KPP 
+        , NULL AS OGRN  
+        , NULL AS OKSM      
+        , NULL AS SecType 
+        , NULL AS RegNumber 
+        , NULL AS ISIN     
+        , NULL AS FundCode 
+        , 0 AS Nominal 
+        , 0 AS NumAll  
+        , 0 AS NumBal  
+        , 0 AS NumNeBal 
+        , 0 AS NumZaem  
+        , 0 AS NumNoOb   
+        , 0 AS NumDolg   
+        , 0 AS NumErr   
+        , 0 AS NumOther  
+        , 0 AS NumDepoUpr  
+        , 0 AS NumKazn    
+        , 0 AS NumZalog  
+        , 0 AS NumEmission  
+        , NULL AS OrgName    
+        , NULL AS OrgType   
+        , NULL AS OrgINN  
+        , NULL AS OrgKPP   
+        , NULL AS OrgOGRN
+        , NULL AS OrgOKSM
+        , NULL AS NumLicen
+} 
+         /*
+@SQL_1_2@ = SQL{ 
+----------------------------
+--  711 форма Раздел 1.2  -- 
+----------------------------
+DECLARE @Date   DSOPERDAY
+
+SELECT @Date = %DATE! 
+     
+SELECT @Date = @Date - 1         
+
+-- Почистим старые данные
+DELETE FROM ubrr.pClientDealRedem 
+ WHERE spid = @@SPID
+ 
+----------------------------------
+-- получение остатков в разрезе ЦБ
+DELETE pAPI_Account_ID 
+  FROM pAPI_Account_ID 
+ WHERE SPID = @@spid
+      
+DELETE pAPI_Account_Subconto
+  FROM pAPI_Account_Subconto 
+ WHERE SPID = @@spid
+  
+-- Ц/Б                      
+INSERT pAPI_Account_Subconto 
+  VALUES(@@spid, 1, 3, 3) 
+  
+-- ВЫПУСКИ                  
+INSERT pAPI_Account_Subconto 
+  VALUES(@@spid, 2, 7, 7)
+
+INSERT pAPI_Account_ID (AccountID, SPID)
+SELECT DISTINCT R.ResourceID, @@spid
+ FROM TTRE_ACCOUNTLINK A  
+INNER JOIN TRESOURCE R 
+   ON R.RESOURCEID = A.RESOURCEID 
+INNER JOIN TTRE_SERVICECONTRACT B 
+   ON B.TRE_SERVICECONTRACTid=A.OBJECTID
+INNER JOIN tTypeAccLink ta1 
+   ON ta1.typeacclinkid=a.ruleaccid
+WHERE ta1.brief = '1_ДЕПОРЗД'
+  AND b.InstChildID <> 2000
+  AND (b.DateClose = '19000101'
+     OR b.DateClose > @Date)
+ GROUP BY R.ResourceID 
+  
+  EXEC FCD_TRE_GetLstRstTrnBySuconto
+          @DateStart  = @Date          -- Дата начала интервала
+        , @DateEnd    = @Date          -- Дата окончания интервала
+-- получение остатков в разрезе ЦБ    
+    
+-- Заполним счетами с ненулевыми остатками    
+  INSERT INTO ubrr.pClientDealRedem (spid, SecurityID, AccountID, InstitutionID, Num, ValueDate, FundID)    
+  SELECT @@SPID
+       , sec.SecurityID 
+       , res.ResourceID
+       , i.InstitutionID              
+       , pSub.Rest*(3-2*res.CharType)
+       , @Date
+       , sec.NominalFundID
+    FROM pAPI_Acc_ListRestTurnBySub pSub
+   INNER JOIN tTRE_Subconto_Sync tSub 
+      ON tSub.DepartmentID       = CASE
+                                        WHEN pSub.ExtraSubcontoID <> 0
+                                        THEN pSub.ExtraSubcontoID
+                                        ELSE pSub.SubcontoID
+                                      END   
+   INNER JOIN tSecurity sec
+      ON sec.SecurityID = tSub.ObjectID   
+   INNER JOIN tResource res
+      ON res.ResourceID = pSub.AccountID  
+   INNER JOIN tInstitution i
+      ON i.InstitutionID = res.InstOwnerID    
+   WHERE spid = @@spid
+     AND pSub.Rest != 0
+    
+
+INSERT INTO #Rep1_2 (InstitutionID 
+                   , ClientInstID
+                   , SecurityID    
+                   , AccountID
+                   , InstName     
+                   , INN                                  
+                   , RegNumber     
+                   , ISIN         
+                   , Num
+                   , TypeAcc 
+                   , RegistInstID
+                    )
+SELECT i.InstitutionID
+     , p.InstitutionID 
+     , s.SecurityID
+     , p.AccountID
+     , i.Name
+     , i.INN                               
+     , s.RegNumber
+     , s.Number   
+     , p.Num
+     , 'OWNER'
+     , (SELECT InstitutionID 
+          FROM tInstitution 
+         WHERE Brief = 'НКО АО НРД')
+  FROM ubrr.pClientDealRedem p
+ INNER JOIN tSecurity s
+    ON s.SecurityID = p.SecurityID
+ INNER JOIN tInstitution i
+    ON i.InstitutionID = s.InstitutionID 
+ WHERE p.spid = @@SPID                                  
+   
+
+ --Вычисление номинала
+DELETE FROM pAPI_Security_IDDate 
+ WHERE spid = @@SPID
+
+DELETE FROM pAPI_Security_Nominal 
+ WHERE spid = @@SPID
+
+INSERT INTO pAPI_Security_IDDate
+SELECT @@SPID, SecurityID, @Date
+  FROM #Rep1_2
+
+EXEC API_Sec_FindListNominalByDate
+
+UPDATE r SET Nominal = sn.Nominal
+  FROM #rep1_2 r 
+ INNER JOIN pAPI_Security_Nominal sn
+    ON sn.SecurityID = r.SecurityID
+   AND sn.SPID = @@SPID
+
+-- Тип счета   
+UPDATE r SET TypeAcc = 'TRUSTEE'
+  FROM #rep1_2 r 
+ INNER JOIN tResource res
+    ON res.ResourceID = r.AccountID
+ INNER JOIN tInstitution i 
+    ON i.InstitutionID = res.InstOwnerID
+ WHERE i.Portal LIKE '8\%'  
+
+ 
+-- Сектор экономики
+UPDATE r SET CodeAccOwner = CASE WHEN i.MainMember = 0 THEN 'S2'
+                                 WHEN i.PropDealPart = 0 THEN 'S14'
+                                 ELSE '-' END 
+  FROM #rep1_2 r 
+ INNER JOIN tResource res
+    ON res.ResourceID = r.AccountID
+ INNER JOIN tInstitution i 
+    ON i.InstitutionID = res.InstOwnerID
+
+      
+--Проставим КПП, ОГРН и пр.
+UPDATE r SET KPP = ISNULL((SELECT kpp.Reuters
+                             FROM [dbo].[tReuters] kpp
+                            WHERE kpp.InstitutionID = r.InstitutionID
+                              AND kpp.TradingSysID = 2    
+                              AND kpp.isdefault = 1), '')
+           , OGRN = ISNULL((SELECT ogrn.Reuters    
+                              FROM [dbo].[tReuters] ogrn
+                             WHERE ogrn.InstitutionID = r.InstitutionID
+                               AND ogrn.TradingSysID = 1018     
+                               AND ogrn.isdefault = 1), '')     
+           , OKSM = (SELECT c.CodeISO 
+                       FROM tCountry c
+                      INNER JOIN tInstitution i
+                         ON i.CountryID =  c.CountryID
+                      WHERE i.InstitutionID = r.InstitutionID) 
+           , FundCode = ISNULL((SELECT f.ISONumber
+                                  FROM tFund f
+                                 INNER JOIN tSecurity s
+                                    ON s.NominalFundID = f.FundID 
+                                 WHERE s.SecurityID = r.SecurityID), '')   
+           , SecType = ISNULL((SELECT MAX(oc.Brief)
+                                 FROM tObjClsRelation ocr
+                                INNER JOIN tObjClassifier oc
+                                   ON oc.ObjClassifierID = ocr.ObjClassifierID
+                                INNER JOIN tObjClassifier parent 
+                                   ON parent.ObjClassifierID = oc.ParentID         
+                                WHERE ocr.ObjectID = r.SecurityID
+                                  AND parent.Brief = 'Классы ценных бумаг'), '')                                                                        
+  FROM #Rep1_2 r 
+
+-- Заполнение граф 49-53
+UPDATE r SET NumZalog    = CASE WHEN sg.R711D_NCOL = 49 THEN r.Num ELSE 0 END 
+           , NumTorgDepo = CASE WHEN sg.R711D_NCOL = 50 THEN r.Num ELSE 0 END
+           , OgranKorpD  = CASE WHEN sg.R711D_NCOL = 51 THEN r.Num ELSE 0 END  
+           , Zapret      = CASE WHEN sg.R711D_NCOL = 52 THEN r.Num ELSE 0 END
+           , Arest       = CASE WHEN sg.R711D_NCOL = 53 THEN r.Num ELSE 0 END  
+  FROM #Rep1_2 r 
+ INNER JOIN tAccPosition ap        
+    ON ap.ResourceID = r.AccountID
+ INNER JOIN tDepartment d 
+    ON d.DepartmentID = ap.DepartmentID
+   AND d.SubcontoType = 100
+   AND d.DepType      = 1
+ INNER JOIN (SELECT R711D_NCOL
+                  , R711D_DST_CODE  
+                           FROM OPENQUERY(UODB,'SELECT R711D_NCOL,R711D_DST_CODE FROM SGDEPO.R711_TAB_DST') 
+                         ) sg
+        ON sg.R711D_DST_CODE = d.Brief
+
+-- Заполнение граф 48
+UPDATE r SET NumAll = NumZalog + NumTorgDepo + OgranKorpD + Zapret + Arest
+  FROM #Rep1_2 r   
+  
+-- Заполним регистратора для Питера
+UPDATE r SET RegistInstID = (SELECT InstitutionID
+                               FROM tInstitution 
+                              WHERE Brief = 'ЗАО "СПб РДЦ"')
+  FROM #Rep1_2 r     
+ INNER JOIN tAccPosition ap        
+    ON ap.ResourceID = r.AccountID
+ INNER JOIN tDepartment d 
+    ON d.DepartmentID = ap.DepartmentID
+   AND d.SubcontoType = 100
+   AND d.DepType      = 1
+ WHERE d.Brief = 'П65'
+        
+          
+--Проставим КПП, ОГРН и пр.   для регистратора
+UPDATE r SET OrgKPP = ISNULL((SELECT kpp.Reuters
+                             FROM [dbo].[tReuters] kpp
+                            WHERE kpp.InstitutionID = r.RegistInstID
+                              AND kpp.TradingSysID = 2    
+                              AND kpp.isdefault = 1), '')
+           , OrgOGRN = ISNULL((SELECT ogrn.Reuters    
+                              FROM [dbo].[tReuters] ogrn
+                             WHERE ogrn.InstitutionID = r.RegistInstID
+                               AND ogrn.TradingSysID = 1018     
+                               AND ogrn.isdefault = 1), '')     
+           , OrgOKSM = (SELECT c.CodeISO 
+                       FROM tCountry c
+                      INNER JOIN tInstitution i
+                         ON i.CountryID =  c.CountryID
+                      WHERE i.InstitutionID = r.RegistInstID)     
+           , OKSMAccOwner = (SELECT c.CodeISO 
+                       FROM tCountry c
+                      INNER JOIN tInstitution i
+                         ON i.CountryID =  c.CountryID
+                      WHERE i.InstitutionID = r.ClientInstID)                           
+           , OrgName = i.Name  
+           , OrgINN = i.INN   
+           , OrgType = 'К'
+           , NumLicen = ia.RegSeries                                                                                
+  FROM #Rep1_2 r      
+ INNER JOIN tInstitution i
+    ON r.RegistInstID = i.InstitutionID    
+  LEFT JOIN tInstAttr ia
+    ON ia.InstitutionID = i.InstitutionID      
+          
+          
+-- Результирующий селект
+IF EXISTS (SELECT 'X'
+             FROM #Rep1_2)
+   SELECT InstName 
+        , INN   
+        , KPP  
+        , OGRN      
+        , OKSM        
+        , SecType   
+        , RegNumber 
+        , ISIN         
+        , FundCode   
+        , Nominal  
+        , TypeAcc   
+        , SUM(Num) AS Num    
+        , SUM(NumAll) AS NumAll  
+        , SUM(NumZalog) AS NumZalog 
+        , SUM(NumTorgDepo) AS NumTorgDepo 
+        , SUM(OgranKorpD) AS OgranKorpD  
+        , SUM(Zapret) AS Zapret 
+        , SUM(Arest) AS Arest 
+        , CodeAccOwner 
+        , OKSMAccOwner 
+        , OrgName 
+        , OrgType
+        , OrgINN 
+        , OrgKPP 
+        , OrgOGRN 
+        , OrgOKSM 
+        , NumLicen
+     FROM #Rep1_2
+    GROUP BY InstName, INN, KPP, OGRN, OKSM, SecType, RegNumber, ISIN, FundCode, Nominal, TypeAcc   
+           , CodeAccOwner, OKSMAccOwner, OrgName, OrgType, OrgINN, OrgKPP, OrgOGRN, OrgOKSM, NumLicen
+ELSE
+  SELECT NULL AS InstName 
+       , NULL AS INN   
+       , NULL AS KPP  
+       , NULL AS OGRN      
+       , NULL AS OKSM        
+       , NULL AS SecType   
+       , NULL AS RegNumber 
+       , NULL AS ISIN         
+       , NULL AS FundCode   
+       , 0 AS Nominal  
+       , NULL AS TypeAcc   
+       , 0 AS Num    
+       , 0 AS NumAll  
+       , 0 AS NumZalog 
+       , 0 AS NumTorgDepo 
+       , 0 AS OgranKorpD  
+       , 0 AS Zapret 
+       , 0 AS Arest 
+       , NULL AS CodeAccOwner 
+       , NULL AS OKSMAccOwner 
+       , NULL AS OrgName 
+       , NULL AS OrgType
+       , NULL AS OrgINN 
+       , NULL AS OrgKPP 
+       , NULL AS OrgOGRN 
+       , NULL AS OrgOKSM 
+       , NULL AS NumLicen
+
+}  
+      */
+
+@SQLDrop@ = SQL{
+DROP TABLE #Rep3
+DROP TABLE #Rep1_4 
+DROP TABLE #Rep1_3   
+DROP TABLE #Rep1_2
+
+SELECT @@SPID
+}
+
+[Field]
+@wtf@ = Field{"\@",@s4}
+@s@=Field{'@',@S1}
+@sl@=Field{'/' + '/',@s2}
+@r@=Field{'#',@s1}
+@PF@=PreviewForm{True}
+@SQLInfo@=SQLInfo{TRUE}
+@FileName@        = Field{FileName,@s25t}   
+@FN@              = FileName{@FileName@}  
+@UN@  = OnReportComplete{WinExec("start.bat ",,FilePath,,FileName,,".XLS"),@s250}   
+
+
+--Раздел 3
+@Num@=Field{Num,@n-_19,CNT}   
+@InstName@=Field{InstName,@s160t}
+@INN@=Field{INN,@s15t}
+@KPP@=Field{KPP,@s30t}
+@OGRN@=Field{OGRN,@s30t}
+@O@=Field{OKSM,@s3t}
+@SecType@=Field{SecType,@s25t}
+@RegNumber@=Field{RegNumber,@s80t}
+@ISIN@=Field{ISIN,@s20t}
+@FundCode@=Field{FundCode,@s10t}
+@Nominal@=Field{Nominal,@n-_28.10}
+@Repo@=Field{Repo,@n-_28.10}
+@RepoZaem@=Field{RepoZaem,@n-_28.10}
+@RepoObr@=Field{RepoObr,@n-_28.10}
+@RepoObrZaem@=Field{RepoObrZaem,@n-_28.10}
+@DoverUpr@=Field{DoverUpr,@n-_28.10}
+@DoverUprPrav@=Field{DoverUprPrav,@n-_28.10}
+@ZalogKO@=Field{ZalogKO,@n-_28.10}
+@Zalog3Lic@=Field{Zalog3Lic,@n-_28.10}
+@Zalog@=Field{Zalog,@n-_28.10}
+@DepoAcc@=Field{DepoAcc,@n-_28.10}
+@OgranKorpD@=Field{OgranKorpD,@n-_28.10}
+@Zapret@=Field{Zapret,@n-_28.10}
+@Arest@=Field{Arest,@n-_28.10}
+@Comment@=Field{Comment,@s255t}
+
+--Раздел 1_4
+@Num1@=Field{Num,@n-_19,CNT}   
+@InstName.....@=Field{InstName,@s160t}
+@INN..........@=Field{INN,@s15t}
+@OGRN.........@=Field{OGRN,@s30t}
+@KPP..........@=Field{KPP,@s30t}
+@1@=Field{OKSM,@s3t}
+@OKVED........@=Field{OKVED,@s30t}
+@SecType......@=Field{SecType,@s25t}
+@RegNumber....@=Field{RegNumber,@s80t}
+@ISIN.........@=Field{ISIN,@s20t}
+@FundCod3@=Field{FundCode,@s10t}
+@SecNum.......@=Field{SecNum,@n-_19.3}
+@Nominal12....@=Field{Nominal,@n-_28.10}
+@SumVlozh.....@=Field{SumVlozh,@n-_18.2}
+@Acc@=Field{AccBrief,@s5t}
+@NKD..........@=Field{NKD,@n-_18.2}
+@RevalOtr.....@=Field{RevalOtr,@n-_18.2}
+@Reval........@=Field{Reval,@n-_18.2}
+@Portf........@=Field{Portf,@s25t}
+@KatKach......@=Field{KatKach,@s30t}
+@Reserv.......@=Field{Reserv,@n-_18.2}
+
+
+--Раздел 1_3
+@Num2@=Field{Num,@n-_19,CNT}   
+@InstName..................@=Field{InstName,@s160t}
+@INN1.........@=Field{INN,@s15t}
+@KPP.......................@=Field{KPP,@s30t}
+@OGRN......................@=Field{OGRN,@s30t}
+@4@=Field{OKSM,@s3t}
+@SecType................@=Field{SecType,@s25t}
+@RegNumber.................@=Field{RegNumber,@s80t}
+@ISIN..............@=Field{ISIN,@s20t}
+@FundCod1@=Field{FundCode,@s10t}
+@Nominal...................@=Field{Nominal,@n-_28.10}
+@NumAll....................@=Field{NumAll,@n-_28.10}
+@NumBal....................@=Field{NumBal,@n-_28.10}
+@NumNeBal..................@=Field{NumNeBal,@n-_28.10}
+@NumZaem...................@=Field{NumZaem,@n-_28.10}
+@NumNoOb...................@=Field{NumNoOb,@n-_28.10}
+@NumDolg...................@=Field{NumDolg,@n-_28.10}
+@NumErr....................@=Field{NumErr,@n-_28.10}
+@NumOther..................@=Field{NumOther,@n-_28.10}
+@NumDepoUpr................@=Field{NumDepoUpr,@n-_28.10}
+@NumKazn...................@=Field{NumKazn,@n-_28.10}
+@NumZalog..................@=Field{NumZalog,@n-_28.10}
+@NumEmission...............@=Field{NumEmission,@n-_28.10}
+@OrgName...................@=Field{OrgName,@s160t}
+@3@=Field{OrgType,@s1t}
+@OrgINN.......@=Field{OrgINN,@s15t}
+@OrgKPP....................@=Field{OrgKPP,@s30t}
+@OrgOGRN...................@=Field{OrgOGRN,@s30t}
+@2@=Field{OrgOKSM,@s3t}
+@NumLicen..........@=Field{NumLicen,@s20t}
+@NumObrAll.................@=Field{NumObrAll,@n-_28.10}
+@NumObrZalog...............@=Field{NumObrZalog,@n-_28.10}
+@NumObrTorgDepo............@=Field{NumObrTorgDepo,@n-_28.10}
+@NumObrOgranKorpD..........@=Field{NumObrOgranKorpD,@n-_28.10}
+@NumObrZapret..............@=Field{NumObrZapret,@n-_28.10}
+@NumObrArest...............@=Field{NumObrArest,@n-_28.10}
+
+
+--Раздел 1_2
+@Num3@=Field{Num,@n-_19,CNT}
+@InstName........................@=Field{InstName,@s160t}
+@INN12........@=Field{INN,@s15t}
+@KPP.........................@=Field{KPP,@s30t}
+@OGRN........................@=Field{OGRN,@s30t}
+@8@=Field{OKSM,@s3t}
+@SecType1...............@=Field{SecType,@s25t}
+@RegNumber.......................@=Field{RegNumber,@s80t}
+@ISIN1.............@=Field{ISIN,@s20t}
+@FundCod2@=Field{FundCode,@s10t}
+@Nominal1..................@=Field{Nominal,@n-_28.10}
+@TypeAcc.@=Field{TypeAcc,@s10t}
+@Num.......................@=Field{Num,@n-_28.10}
+@NumAll1...................@=Field{NumAll,@n-_28.10}
+@NumZalog1.................@=Field{NumZalog,@n-_28.10}
+@NumTorgDepo...............@=Field{NumTorgDepo,@n-_28.10}
+@OgranKorpD................@=Field{OgranKorpD,@n-_28.10}
+@Zapret....................@=Field{Zapret,@n-_28.10}
+@Arest.....................@=Field{Arest,@n-_28.10}
+@CodeAccO@=Field{CodeAccOwner,@s10t}
+@7@=Field{OKSMAccOwner,@s3t}
+@OrgName.........................@=Field{OrgName,@s160t}
+@6@=Field{OrgType,@s1t}
+@OrgINN1......@=Field{OrgINN,@s15t}
+@OrgKPP......................@=Field{OrgKPP,@s30t}
+@OrgOGRN.....................@=Field{OrgOGRN,@s30t}
+@5@=Field{OrgOKSM,@s3t}
+@NumLicen1.........@=Field{NumLicen,@s20t}
+
+
+&&
+#@SQLT@
+#@FN@
+#@UN@  
+#@PF@
+$T   
+$
+MIME-Version: 1.0
+X-Document-Type: Workbook
+Content-Type: multipart/related; boundary="----=_NextPart_01C9A691.80E91F00"
+
+------=_NextPart_01C9A691.80E91F00
+Content-Location: template.htm
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="windows-1251"
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml"
+xmlns:o=3D"urn:schemas-microsoft-com:office:office"
+xmlns:x=3D"urn:schemas-microsoft-com:office:excel"
+xmlns=3D"http:@sl@www.w3.org/TR/REC-html40">
+
+<head>
+<meta name=3D"Excel Workbook Frameset">
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dwindows-1251">
+<link rel=3D"File-List" href=3D"filelist.xml">
+<xml>
+ <x:ExcelWorkbook>
+  <x:ExcelWorksheets> 
+
+ /*  <x:ExcelWorksheet>
+    <x:Name>1.2</x:Name>
+    <x:WorksheetSource HRef=3Dsheet01.htm/>
+   </x:ExcelWorksheet>  */
+ 
+   <x:ExcelWorksheet>
+    <x:Name>1.3</x:Name>
+    <x:WorksheetSource HRef=3Dsheet02.htm/>
+   </x:ExcelWorksheet>
+             
+   <x:ExcelWorksheet>
+    <x:Name>1.4</x:Name>
+    <x:WorksheetSource HRef=3Dsheet03.htm/>
+   </x:ExcelWorksheet>     
+
+   <x:ExcelWorksheet>
+    <x:Name>3</x:Name>
+    <x:WorksheetSource HRef=3Dsheet04.htm/>
+   </x:ExcelWorksheet>    
+   
+  </x:ExcelWorksheets> 
+  <x:Stylesheet HRef=3D"stylesheet.css"/>
+  <x:WindowHeight>8130</x:WindowHeight>
+  <x:WindowWidth>15135</x:WindowWidth>
+  <x:WindowTopX>120</x:WindowTopX>
+  <x:WindowTopY>45</x:WindowTopY>                      
+  <x:ProtectStructure>False</x:ProtectStructure>       
+  <x:ProtectWindows>False</x:ProtectWindows>           
+ </x:ExcelWorkbook>
+</xml>
+</head>
+
+<frameset rows=3D"*,39" border=3D0 width=3D0 frameborder=3Dno framespacing=3D0>
+ <frame src=3D"sheet01.htm" name=3D"frSheet">
+ <frame src=3D"tabstrip.htm" name=3D"frTabs" marginwidth=3D0 marginheight=3D0>
+</frameset>
+</html>
+
+------=_NextPart_01C9A691.80E91F00
+Content-Location: stylesheet.css
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/css; charset="windows-1251"
+
+tr
+        {mso-height-source:auto;}
+col
+
+br
+        {mso-data-placement:same-cell;}
+.style0
+        {mso-number-format:General;
+        text-align:general;
+        vertical-align:bottom;
+        white-space:nowrap;
+        mso-rotate:0;
+        color:windowtext;
+        font-size:10.0pt;
+        font-weight:400;
+        font-style:normal;
+        text-decoration:none;
+        font-family:Arial;
+        mso-generic-font-family:auto;
+        mso-font-charset:204;
+        border:none;
+        mso-protection:locked visible;
+        mso-style-name:Обычный;
+        mso-style-id:0;}
+        
+
+table {
+        mso-style-parent:style0;
+        border:none;
+        padding: 0;
+        margin: 0;
+        border-collapse: collapse;
+}
+td
+        {mso-style-parent:style0;
+        mso-ignore:padding;
+        color:black;
+        font-weight:400;
+        font-style:normal;
+        text-decoration:none;
+        mso-number-format:General;
+        text-align:general;
+        vertical-align:bottom;
+        border:none;
+        mso-protection:locked visible;
+        mso-rotate:0;}     
+
+.x_shapka
+        {padding-top:1px;
+        padding-right:1px;
+        padding-left:1px;
+        mso-ignore:padding;
+        color:black;
+        font-size:10.0pt;
+        font-weight:bold;
+        font-style:normal;
+        text-decoration:none;
+        font-family:Arial Narrow;
+        mso-font-charset:204;
+        mso-number-format:General;
+        text-align:center;
+        vertical-align:middle;
+        border-top:0.5pt solid windowtext;
+        border-right:0.5pt solid windowtext;
+        border-bottom:0.5pt solid windowtext;
+        border-left:0.5pt solid windowtext;
+        white-space:normal;
+        background:#B0E0E6;
+        mso-pattern:auto none;}        
+// http://www.site-do.ru/graphic/color.php  -- Таблицы HTML - цветов        
+.x_shapka_2
+        {padding-top:1px;
+        padding-right:1px;
+        padding-left:1px;
+        mso-ignore:padding;
+        color:black;
+        font-size:10.0pt;
+        font-weight:bold;
+        font-style:normal;
+        text-decoration:none;
+        font-family:Arial Narrow;  
+        mso-font-charset:204;
+        mso-number-format:General;
+        text-align:center;
+        vertical-align:middle;
+        border-top:0.5pt solid windowtext;
+        border-right:0.5pt solid windowtext;
+        border-bottom:0.5pt solid windowtext;
+        border-left:0.5pt solid windowtext;
+        white-space:normal;
+        background:#FFFACD;
+        mso-pattern:auto none;          
+        }                                          
+        
+.x_zagolovok_date
+        {padding-top:1px;
+        padding-right:1px;
+        padding-left:1px;
+        mso-ignore:padding;
+        color:black;
+        font-size:10.0pt;
+        font-weight:bold;
+        font-style:normal;
+        text-decoration:none;
+        font-family:Arial Narrow;
+        mso-font-charset:204;
+        mso-number-format:"\@s@"; 
+        text-align:general;
+        vertical-align:bottom;
+        border-top:0.0pt solid windowtext;
+        border-right:0.0pt solid windowtext;
+        border-bottom:0.0pt solid windowtext;
+        border-left:0.0pt solid windowtext;
+        mso-background-source:auto;
+        mso-pattern:auto;
+        white-space:nowrap;} 
+
+.x_zagolovok_string
+        {padding-top:1px;
+        padding-right:1px;
+        padding-left:1px;
+        mso-ignore:padding;
+        color:black;
+        font-size:10.0pt;
+        font-weight:bold;
+        font-style:normal;
+        text-decoration:none;
+        font-family:Arial Narrow;
+        mso-font-charset:204;
+        mso-number-format:General;
+        text-align:general;
+        vertical-align:bottom;
+        mso-background-source:auto;
+        mso-pattern:auto;
+        white-space:normal;}   
+               
+.x_number
+        {padding-top:1px;
+        padding-right:1px;
+        padding-left:1px;
+        mso-ignore:padding;
+        color:black;
+        font-size:10.0pt;
+        font-weight:400;
+        font-style:normal;
+        text-decoration:none;
+        font-family:Arial Narrow;
+        mso-font-charset:204;
+        mso-number-format:Standard;
+        text-align:general;
+        vertical-align:bottom;
+        border-top:0.5pt solid windowtext;
+        border-right:0.5pt solid windowtext;
+        border-bottom:0.5pt solid windowtext;
+        border-left:0.5pt solid windowtext;
+        mso-background-source:auto;
+        mso-pattern:auto;
+        white-space:nowrap;}
+        
+.x_number_6
+        {padding-top:1px;
+        padding-right:1px;
+        padding-left:1px;
+        mso-ignore:padding;
+        color:black;
+        font-size:10.0pt;
+        font-weight:400;
+        font-style:normal;
+        text-decoration:none;
+        font-family:Arial Narrow;
+        mso-font-charset:204;
+        mso-number-format:"\@r@\,\@r@\@r@0\.0\@r@\@r@\@r@\@r@\@r@"; 
+        text-align:general;
+        vertical-align:bottom;
+        border-top:0.5pt solid windowtext;
+        border-right:0.5pt solid windowtext;
+        border-bottom:0.5pt solid windowtext;
+        border-left:0.5pt solid windowtext;
+        mso-background-source:auto;
+        mso-pattern:auto;
+        white-space:nowrap;}        
+        
+.x_number_bold
+        {padding-top:1px;
+        padding-right:1px;
+        padding-left:1px;
+        mso-ignore:padding;
+        color:black;
+        font-size:10.0pt;
+        font-weight:bold;
+        font-style:normal;
+        text-decoration:none;
+        font-family:Arial Narrow;
+        mso-font-charset:204;
+        mso-number-format:Standard;
+        text-align:general;
+        vertical-align:bottom;
+        border-top:0.5pt solid windowtext;
+        border-right:0.5pt solid windowtext;
+        border-bottom:0.5pt solid windowtext;
+        border-left:0.5pt solid windowtext;
+        mso-background-source:auto;
+        mso-pattern:auto;
+        white-space:nowrap;}        
+        
+.x_int
+        {padding-top:1px;
+        padding-right:1px;
+        padding-left:1px;
+        mso-ignore:padding;
+        color:black;
+        font-size:10.0pt;
+        font-weight:400;
+        font-style:normal;
+        text-decoration:none;
+        font-family:Arial Narrow;
+        mso-font-charset:204;
+        mso-number-format:"\@r@\,\@r@\@r@0"; 
+        text-align:general;
+        vertical-align:bottom;
+        border-top:0.5pt solid windowtext;
+        border-right:0.5pt solid windowtext;
+        border-bottom:0.5pt solid windowtext;
+        border-left:0.5pt solid windowtext;
+        mso-background-source:auto;
+        mso-pattern:auto;
+        white-space:nowrap;}
+                
+.x_int_bold
+        {padding-top:1px;
+        padding-right:1px;
+        padding-left:1px;
+        mso-ignore:padding;
+        color:black;
+        font-size:10.0pt;
+        font-weight:bold;
+        font-style:normal;
+        text-decoration:none;
+        font-family:Arial Narrow;
+        mso-font-charset:204;
+        mso-number-format:"\@r@\,\@r@\@r@0"; 
+        text-align:general;
+        vertical-align:bottom;
+        border-top:0.5pt solid windowtext;
+        border-right:0.5pt solid windowtext;
+        border-bottom:0.5pt solid windowtext;
+        border-left:0.5pt solid windowtext;
+        mso-background-source:auto;
+        mso-pattern:auto;
+        white-space:nowrap;}                                                
+.x_string
+        {padding-top:1px;
+        padding-right:1px;
+        padding-left:1px;
+        mso-ignore:padding;
+        color:black;
+        font-size:10.0pt;
+        font-weight:400;
+        font-style:normal;
+        text-decoration:none;
+        font-family:Arial Narrow;
+        mso-font-charset:204;
+        mso-number-format:General;
+        text-align:general;
+        vertical-align:bottom;
+        border-top:0.5pt solid windowtext;
+        border-right:0.5pt solid windowtext;
+        border-bottom:0.5pt solid windowtext;
+        border-left:0.5pt solid windowtext;
+        mso-background-source:auto;
+        mso-pattern:auto;
+        white-space:nowrap;}
+        
+.x_string_bold
+        {padding-top:1px;
+        padding-right:1px;
+        padding-left:1px;
+        mso-ignore:padding;
+        color:black;
+        font-size:10.0pt;
+        font-weight:bold;
+        font-style:normal;
+        text-decoration:none;
+        font-family:Arial Narrow;
+        mso-font-charset:204;
+        mso-number-format:General;
+        text-align:general;
+        vertical-align:bottom;
+        border-top:0.5pt solid windowtext;
+        border-right:0.5pt solid windowtext;
+        border-bottom:0.5pt solid windowtext;
+        border-left:0.5pt solid windowtext;
+        mso-background-source:auto;
+        mso-pattern:auto;
+        white-space:nowrap;}        
+.x_date
+        {padding-top:1px;
+        padding-right:1px;
+        padding-left:1px;
+        mso-ignore:padding;
+        color:black;
+        font-size:10.0pt;
+        font-weight:400;
+        font-style:normal;
+        text-decoration:none;
+        font-family:Arial Narrow;
+        mso-font-charset:204;
+        mso-number-format:"\@s@"; 
+        text-align:general;
+        vertical-align:bottom;
+        border-top:0.5pt solid windowtext;
+        border-right:0.5pt solid windowtext;
+        border-bottom:0.5pt solid windowtext;
+        border-left:0.5pt solid windowtext;
+        mso-background-source:auto;
+        mso-pattern:auto;
+        white-space:nowrap;}
+
+.x_acc
+        {padding-top:1px;
+        padding-right:1px;
+        padding-left:1px;
+        mso-ignore:padding;
+        color:black;
+        font-size:10.0pt;
+        font-weight:400;
+        font-style:normal;
+        text-decoration:none;
+        font-family:Arial Narrow;
+        mso-font-charset:204;
+        mso-number-format:@wtf@;
+        text-align:general;
+        vertical-align:bottom;
+        border-top:0.5pt solid windowtext;
+        border-right:0.5pt solid windowtext;
+        border-bottom:0.5pt solid windowtext;
+        border-left:0.5pt solid windowtext;
+        mso-background-source:auto;
+        mso-pattern:auto;
+        white-space:nowrap;}        
+    
+        
+------=_NextPart_01C9A691.80E91F00
+Content-Location: tabstrip.htm
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="windows-1251"
+
+<html>
+<head>
+<meta http-equiv=3DContent-Type content=3D"text/html; charset=3Dwindows-1251">
+<link id=3DMain-File rel=3DMain-File href=3D"template.htm">
+<script language=3D"JavaScript">
+<!--
+if (window.name!=3D"frTabs")
+ window.location.replace(document.all.item("Main-File").href);
+//-->
+</script>
+<style>
+<!--
+A {
+    text-decoration:none;
+    color:@r@000000;
+    font-size:9pt;
+}
+-->
+</style>
+</head>
+
+</html>
+&
+    /*   
+#@SQL_1_2@  
+------=_NextPart_01C9A691.80E91F00
+Content-Location: sheet01.htm
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="windows-1251"
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml"
+xmlns:o=3D"urn:schemas-microsoft-com:office:office"
+xmlns:x=3D"urn:schemas-microsoft-com:office:excel"
+xmlns=3D"http:@sl@www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=3DContent-Type content=3D"text/html; charset=3Dwindows-1251">
+<link id=3DMain-File rel=3DMain-File href=3D"template.htm">
+<link rel=3DFile-List href=3Dfilelist.xml>
+<link rel=3DStylesheet href=3Dstylesheet.css>
+<style>
+@s@page
+        {margin:.39in .39in .39in .39in;
+        mso-header-margin:0in;
+        mso-footer-margin:0in;
+        mso-page-orientation:landscape;}
+</style>
+<xml>
+ <x:WorksheetOptions>
+  <x:FitToPage/>
+  <x:Print>
+   <x:ValidPrinterInfo/>
+   <x:PaperSizeIndex>9</x:PaperSizeIndex>
+   <x:FitHeight>9999</x:FitHeight>
+   <x:HorizontalResolution>600</x:HorizontalResolution>
+   <x:VerticalResolution>600</x:VerticalResolution>
+  </x:Print>
+  <x:Selected/>
+  // <x:DoNotDisplayGridlines/>    
+   <x:FrozenNoSplit/>
+   <x:SplitHorizontal>5</x:SplitHorizontal>              
+   <x:TopRowBottomPane>5</x:TopRowBottomPane>
+   <x:ActivePane>2</x:ActivePane>
+ </x:WorksheetOptions>
+</xml>
+</head>
+<body>
+<div id=3D"j_CrRRepo_506" align=3Dcenter x:publishsource=3D"Excel">
+<table border=3D0 cellpadding=3D0 cellspacing=3D0 width=3D3807>
+
+ <col width=3D100>      //1  
+ <col width=3D100>      //2 
+ <col width=3D100>      //3 
+ <col width=3D100>      //4 
+ <col width=3D100>      //5 
+ <col width=3D100>      //6 
+ <col width=3D100>      //7 
+ <col width=3D100>      //8 
+ <col width=3D100>      //9 
+ <col width=3D100>      //10 
+ <col width=3D100>      //11   
+ <col width=3D100>      //12  
+ <col width=3D100>      //13 
+ <col width=3D100>      //14 
+ <col width=3D100>      //15 
+ <col width=3D100>      //16 
+ <col width=3D100>      //17 
+ <col width=3D100>      //18 
+ <col width=3D100>      //19 
+ <col width=3D100>      //20 
+ <col width=3D100>      //21 
+ <col width=3D100>      //22    
+ <col width=3D100>      //23 
+ <col width=3D100>      //24 
+ <col width=3D100>      //25 
+ <col width=3D100>      //26 
+ <col width=3D100>      //27 
+ <col width=3D100>      //28   
+       
+ <tr>    
+    <td colspan=3D11 class=3Dx_zagolovok_string>Подраздел 1.2. Ценные бумаги, учитываемые на счетах депо и иных счетах клиентов депозитария</td>         
+ </tr>    
+ 
+ <tr>
+  <td rowspan=3D3 class=3Dx_shapka_2>Номер строки</td>
+  <td rowspan=3D3 class=3Dx_shapka_2>Наименование эмитента</td>    
+  <td rowspan=3D3 class=3Dx_shapka_2>ИНН эмитента</td>      
+  <td rowspan=3D3 class=3Dx_shapka_2>КПП эмитента</td>      
+  <td rowspan=3D3 class=3Dx_shapka_2>ОГРН эмитента</td>    
+  <td rowspan=3D3 class=3Dx_shapka_2>Код ОКСМ страны эмитента</td>      
+  <td rowspan=3D3 class=3Dx_shapka_2>Код типа ценной бумаги</td>         
+  <td rowspan=3D3 class=3Dx_shapka_2>Государственный регистрационный номер выпуска ценных бумаг или идентификационный номер выпуска ценных бумаг</td>      
+  <td rowspan=3D3 class=3Dx_shapka_2>Код ISIN ценной бумаги</td>  
+  <td rowspan=3D3 class=3Dx_shapka_2>Код валюты ценной бумаги</td>        
+  <td rowspan=3D3 class=3Dx_shapka_2>Номинальная стоимость одной ценной бумаги, ед. валюты обязательства</td>     
+  <td rowspan=3D3 class=3Dx_shapka_2>Вид счета (счета депо),открытого в депозитарии, спецдепозитарии</td>       
+  <td rowspan=3D3 class=3Dx_shapka_2>Количество ценных бумаг, штук</td>                    
+  <td colspan=3D6 class=3Dx_shapka_2>Количество ценных бумаг, в отношении которых зафиксировано обременение и (или) ограничение распоряжения, шт.</td>    
+  <td rowspan=3D3 class=3Dx_shapka_2>Информация о владельце счета депо, (код принадлежности к сектору экономики)</td>        
+  <td rowspan=3D3 class=3Dx_shapka_2>Код ОКСМ страны вла-дельца счета депо</td>  
+  <td rowspan=3D3 class=3Dx_shapka_2>Наименование организации (вышестоящего депозитария, спецдепозитария, регистратора)</td>          
+  <td rowspan=3D3 class=3Dx_shapka_2>Признак организации (вышестоящего депозитария, спецдепозитария, регистратора)</td>            
+  <td rowspan=3D3 class=3Dx_shapka_2>ИНН организации (вышестоящего депозитария, спецдепозитария, регистратора)</td>              
+  <td rowspan=3D3 class=3Dx_shapka_2>КПП организации (вышестоящего депозитария, спецдепозитария, регистратора)</td>                
+  <td rowspan=3D3 class=3Dx_shapka_2>ОГРН организации (вышестоящего депозитария, спецдепозитария, регистратора)</td>                  
+  <td rowspan=3D3 class=3Dx_shapka_2>Код ОКСМ страны организации (вышестоящего депозитария, спецдепозитария, регистратора)</td>                    
+  <td rowspan=3D3 class=3Dx_shapka_2>Номер лицензии профессионального участника рынка ценных бумаг организации (вышестоящего депозитария, спецдепозитария, регистратора)</td>                      
+ </tr>
+ 
+ <tr>
+  <td rowspan=3D2 class=3Dx_shapka_2>всего</td>
+  <td colspan=3D5 class=3Dx_shapka_2>из них</td>                  
+ </tr> 
+
+ <tr>
+  <td class=3Dx_shapka_2>в залоге</td>
+  <td class=3Dx_shapka_2>учитываемых на торговых (клиринговых) счетах депо</td>  
+  <td class=3Dx_shapka_2>ограничено рас-поряжение в связи с корпоративными  действиями</td>    
+  <td class=3Dx_shapka_2>введен запрет на осуществление операций</td>        
+  <td class=3Dx_shapka_2>под арестом</td>          
+ </tr> 
+ 
+ <tr>
+  <td class=3Dx_shapka_2>35</td>
+  <td class=3Dx_shapka_2>36</td>
+  <td class=3Dx_shapka_2>37</td>
+  <td class=3Dx_shapka_2>38</td>
+  <td class=3Dx_shapka_2>39</td>
+  <td class=3Dx_shapka_2>40</td>
+  <td class=3Dx_shapka_2>41</td>
+  <td class=3Dx_shapka_2>42</td>            
+  <td class=3Dx_shapka_2>43</td>
+  <td class=3Dx_shapka_2>44</td>
+  <td class=3Dx_shapka_2>45</td>    
+  <td class=3Dx_shapka_2>46</td>
+  <td class=3Dx_shapka_2>47</td>
+  <td class=3Dx_shapka_2>48</td>
+  <td class=3Dx_shapka_2>49</td>
+  <td class=3Dx_shapka_2>50</td>
+  <td class=3Dx_shapka_2>51</td>
+  <td class=3Dx_shapka_2>52</td>   
+  <td class=3Dx_shapka_2>53</td>
+  <td class=3Dx_shapka_2>54</td>
+  <td class=3Dx_shapka_2>55</td>    
+  <td class=3Dx_shapka_2>56</td>
+  <td class=3Dx_shapka_2>57</td>
+  <td class=3Dx_shapka_2>58</td>
+  <td class=3Dx_shapka_2>59</td>
+  <td class=3Dx_shapka_2>60</td>
+  <td class=3Dx_shapka_2>61</td>
+  <td class=3Dx_shapka_2>62</td>                                
+ </tr>
+$T 
+ <tr>
+  <td class=3Dx_int>@Num3@</td>   
+  <td class=3Dx_string>@InstName........................@</td>   
+  <td class=3Dx_string>@INN12........@</td>     
+  <td class=3Dx_acc>@KPP.........................@</td>       
+  <td class=3Dx_acc>@OGRN........................@</td>     
+  <td class=3Dx_string>@8@</td>     
+  <td class=3Dx_string>@SecType1...............@</td>             
+  <td class=3Dx_string>@RegNumber.......................@</td>     
+  <td class=3Dx_string>@ISIN1.............@</td>         
+  <td class=3Dx_string>@FundCod2@</td>        
+  <td class=3Dx_number>@Nominal1..................@</td>  
+  <td class=3Dx_string>@TypeAcc.@</td>                                    
+  <td class=3Dx_number>@Num.......................@</td>       
+  <td class=3Dx_number>@NumAll1...................@</td>     
+  <td class=3Dx_number>@NumZalog1.................@</td>     
+  <td class=3Dx_number>@NumTorgDepo...............@</td>     
+  <td class=3Dx_number>@OgranKorpD................@</td>     
+  <td class=3Dx_number>@Zapret....................@</td>     
+  <td class=3Dx_number>@Arest.....................@</td>          
+  <td class=3Dx_string>@CodeAccO@</td>     
+  <td class=3Dx_string>@7@</td>                  
+  <td class=3Dx_string>@OrgName.........................@</td>                              
+  <td class=3Dx_string>@6@</td>                                
+  <td class=3Dx_string>@OrgINN1......@</td>     
+  <td class=3Dx_string>@OrgKPP......................@</td>       
+  <td class=3Dx_acc>@OrgOGRN.....................@</td>                              
+  <td class=3Dx_string>@5@</td>       
+  <td class=3Dx_acc>@NumLicen1.........@</td>           
+ </tr> 
+$ 
+
+ <tr>
+ <td></td>                              
+ </tr> 
+</table>
+</div>
+</body>
+</html>         
+&     */
+       
+#@SQL_1_3@  
+------=_NextPart_01C9A691.80E91F00
+Content-Location: sheet02.htm
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="windows-1251"
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml"
+xmlns:o=3D"urn:schemas-microsoft-com:office:office"
+xmlns:x=3D"urn:schemas-microsoft-com:office:excel"
+xmlns=3D"http:@sl@www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=3DContent-Type content=3D"text/html; charset=3Dwindows-1251">
+<link id=3DMain-File rel=3DMain-File href=3D"template.htm">
+<link rel=3DFile-List href=3Dfilelist.xml>
+<link rel=3DStylesheet href=3Dstylesheet.css>
+<style>
+@s@page
+        {margin:.39in .39in .39in .39in;
+        mso-header-margin:0in;
+        mso-footer-margin:0in;
+        mso-page-orientation:landscape;}
+</style>
+<xml>
+ <x:WorksheetOptions>
+  <x:FitToPage/>
+  <x:Print>
+   <x:ValidPrinterInfo/>
+   <x:PaperSizeIndex>9</x:PaperSizeIndex>
+   <x:FitHeight>9999</x:FitHeight>
+   <x:HorizontalResolution>600</x:HorizontalResolution>
+   <x:VerticalResolution>600</x:VerticalResolution>
+  </x:Print>
+  <x:Selected/>
+  // <x:DoNotDisplayGridlines/>    
+   <x:FrozenNoSplit/>
+   <x:SplitHorizontal>5</x:SplitHorizontal>              
+   <x:TopRowBottomPane>5</x:TopRowBottomPane>
+   <x:ActivePane>2</x:ActivePane>
+ </x:WorksheetOptions>
+</xml>
+</head>
+<body>
+<div id=3D"j_CrRRepo_506" align=3Dcenter x:publishsource=3D"Excel">
+<table border=3D0 cellpadding=3D0 cellspacing=3D0 width=3D3807>
+
+ <col width=3D100>      //1  
+ <col width=3D100>      //2 
+ <col width=3D100>      //3 
+ <col width=3D100>      //4 
+ <col width=3D100>      //5 
+ <col width=3D100>      //6 
+ <col width=3D100>      //7 
+ <col width=3D100>      //8 
+ <col width=3D100>      //9 
+ <col width=3D100>      //10 
+ <col width=3D100>      //11   
+ <col width=3D100>      //12  
+ <col width=3D100>      //13 
+ <col width=3D100>      //14 
+ <col width=3D100>      //15 
+ <col width=3D100>      //16 
+ <col width=3D100>      //17 
+ <col width=3D100>      //18 
+ <col width=3D100>      //19 
+ <col width=3D100>      //20 
+ <col width=3D100>      //21 
+ <col width=3D100>      //22    
+ <col width=3D100>      //23 
+ <col width=3D100>      //24 
+ <col width=3D100>      //25 
+ <col width=3D100>      //26 
+ <col width=3D100>      //27 
+ <col width=3D100>      //28 
+ <col width=3D100>      //29        
+ <col width=3D100>      //30    
+       
+ <tr>    
+    <td colspan=3D11 class=3Dx_zagolovok_string>Подраздел 1.3. Ценные бумаги, принадлежащие кредитной организации на праве собственности или ином вещном праве</td>         
+ </tr>    
+ 
+ <tr>
+  <td rowspan=3D3 class=3Dx_shapka_2>Номер строки</td>
+  <td rowspan=3D3 class=3Dx_shapka_2>Наименование эмитента</td>    
+  <td rowspan=3D3 class=3Dx_shapka_2>ИНН эмитента</td>      
+  <td rowspan=3D3 class=3Dx_shapka_2>КПП эмитента</td>      
+  <td rowspan=3D3 class=3Dx_shapka_2>ОГРН эмитента</td>    
+  <td rowspan=3D3 class=3Dx_shapka_2>Код ОКСМ страны эмитента</td>      
+  <td rowspan=3D3 class=3Dx_shapka_2>Код типа ценной бумаги</td>         
+  <td rowspan=3D3 class=3Dx_shapka_2>Государственный регистрационный номер выпуска ценных бумаг или идентификационный номер выпуска ценных бумаг</td>      
+  <td rowspan=3D3 class=3Dx_shapka_2>Код ISIN ценной бумаги</td>  
+  <td rowspan=3D3 class=3Dx_shapka_2>Код валюты ценной бумаги</td>        
+  <td rowspan=3D3 class=3Dx_shapka_2>Номинальная стоимость одной ценной бумаги, ед. валюты обязательства</td>              
+  <td colspan=3D8 class=3Dx_shapka_2>Ценные бумаги, принадлежащие кредитной организации на праве собственности</td>    
+  <td rowspan=3D1 colspan=3D4 class=3Dx_shapka_2>Количество ценных бумаг на иных счетах кредитной организации (шт.), в том числе</td>      
+  <td rowspan=3D1 colspan=3D6 class=3Dx_shapka_2>Количество ценных бумаг, в отношении которых зафиксировано обременение и (или) ограничение распоряжения, шт.</td>     //19.03.2018 UBRR Verzhbickiy [18-184]
+  <td rowspan=3D3 class=3Dx_shapka_2>Наименование организации, ведущей учет прав кредитной организации на ценные бумаги</td>        
+  <td rowspan=3D3 class=3Dx_shapka_2>Признак организации, ведущей учет прав кредитной организации на ценные бумаги</td>          
+  <td rowspan=3D3 class=3Dx_shapka_2>ИНН организации, ведущей учет прав кредитной организации на ценные бумаги</td>            
+  <td rowspan=3D3 class=3Dx_shapka_2>КПП организации, ведущей учет прав кредитной организации на ценные бумаги</td>              
+  <td rowspan=3D3 class=3Dx_shapka_2>ОГРН организации, ведущей учет прав кредитной организации на ценные бумаги</td>                
+  <td rowspan=3D3 class=3Dx_shapka_2>Код ОКСМ страны организации, ведущей учет прав кредитной организации на ценные бумаги</td>                  
+  <td rowspan=3D3 class=3Dx_shapka_2>Номер лицензии профессионального участника рынка ценных бумаг - депозитария, спецдепозитария, регистратора</td>                    
+ </tr>
+ 
+ <tr>
+  <td rowspan=3D2 class=3Dx_shapka_2>Количество ценных бумаг, всего, шт.</td>
+  <td rowspan=3D2 class=3Dx_shapka_2>из них количество ценных бумаг, вложения в которые отражены на счетах основного баланса (за исключением переданных кредитной организацией на возвратной основе без прекращения признания, в доверительное управление, в заклад)</td>                  
+  <td colspan=3D6 class=3Dx_shapka_2>из них количество ценных бумаг, вложения в которые отсутствуют по счетам основного баланса</td>  
+  <td rowspan=3D2 class=3Dx_shapka_2>на счетах депо доверительного управляющего</td>   
+  <td rowspan=3D2 class=3Dx_shapka_2>на казначейских счетах эмитента</td>     
+  <td rowspan=3D2 class=3Dx_shapka_2>полученных в заклад</td>       
+  <td rowspan=3D2 class=3Dx_shapka_2>на эмиссионных счетах</td>    
+  <td rowspan=3D2 class=3Dx_shapka_2>всего</td>    
+  <td colspan=3D5 class=3Dx_shapka_2>из них</td>             
+ </tr> 
+
+ <tr>
+  <td class=3Dx_shapka_2>приобретенных без первоначального признания по сделке РЕПО</td>
+  <td class=3Dx_shapka_2>полученных по сделкам займа</td>  
+  <td class=3Dx_shapka_2>обязательства по которым отсутствуют</td>    
+  <td class=3Dx_shapka_2>вложения в которые признаны безнадежными долгами</td>      
+  <td class=3Dx_shapka_2>ошибочно зачисленные на счета кредитной организации</td>        
+  <td class=3Dx_shapka_2>по другим причинам</td>          
+  <td class=3Dx_shapka_2>в залоге</td>   
+  <td class=3Dx_shapka_2>учитываемых на торговых (клиринговых) счетах депо</td>          
+  <td class=3Dx_shapka_2>ограничено распоряжение в связи с корпоративными действиями</td>   
+  <td class=3Dx_shapka_2>введен запрет на осуществление операций</td>   
+  <td class=3Dx_shapka_2>под арестом</td>     
+ </tr> 
+ 
+ <tr>
+  <td class=3Dx_shapka_2>63</td>
+  <td class=3Dx_shapka_2>64</td>
+  <td class=3Dx_shapka_2>65</td>
+  <td class=3Dx_shapka_2>66</td>
+  <td class=3Dx_shapka_2>67</td>
+  <td class=3Dx_shapka_2>68</td>
+  <td class=3Dx_shapka_2>69</td>
+  <td class=3Dx_shapka_2>70</td>            
+  <td class=3Dx_shapka_2>71</td>
+  <td class=3Dx_shapka_2>72</td>
+  <td class=3Dx_shapka_2>73</td>    
+  <td class=3Dx_shapka_2>74</td>
+  <td class=3Dx_shapka_2>75</td>
+  <td class=3Dx_shapka_2>76</td>
+  <td class=3Dx_shapka_2>77</td>
+  <td class=3Dx_shapka_2>78</td>
+  <td class=3Dx_shapka_2>79</td>
+  <td class=3Dx_shapka_2>80</td>   
+  <td class=3Dx_shapka_2>81</td>
+  <td class=3Dx_shapka_2>82</td>
+  <td class=3Dx_shapka_2>83</td>    
+  <td class=3Dx_shapka_2>84</td>
+  <td class=3Dx_shapka_2>85</td>
+  <td class=3Dx_shapka_2>86</td>
+  <td class=3Dx_shapka_2>87</td>
+  <td class=3Dx_shapka_2>88</td>
+  <td class=3Dx_shapka_2>89</td>
+  <td class=3Dx_shapka_2>90</td>                 
+  <td class=3Dx_shapka_2>91</td>
+  <td class=3Dx_shapka_2>92</td>    
+  <td class=3Dx_shapka_2>93</td>
+  <td class=3Dx_shapka_2>94</td>
+  <td class=3Dx_shapka_2>95</td>
+  <td class=3Dx_shapka_2>96</td>                 
+  <td class=3Dx_shapka_2>97</td>
+  <td class=3Dx_shapka_2>98</td>                      
+ </tr>
+$T 
+ <tr>
+  <td class=3Dx_int>@Num2@</td>   
+  <td class=3Dx_string>@InstName..................@</td>   
+  <td class=3Dx_string>@INN1.........@</td>     
+  <td class=3Dx_acc>@KPP.......................@</td>       
+  <td class=3Dx_acc>@OGRN......................@</td>     
+  <td class=3Dx_string>@4@</td>     
+  <td class=3Dx_string>@SecType................@</td>             
+  <td class=3Dx_string>@RegNumber.................@</td>     
+  <td class=3Dx_string>@ISIN..............@</td>         
+  <td class=3Dx_string>@FundCod1@</td>        
+  <td class=3Dx_number>@Nominal...................@</td>                            
+  <td class=3Dx_number>@NumAll....................@</td>     
+  <td class=3Dx_number>@NumBal....................@</td>   
+  <td class=3Dx_number>@NumNeBal..................@</td>   
+  <td class=3Dx_number>@NumZaem...................@</td>   
+  <td class=3Dx_number>@NumNoOb...................@</td>   
+  <td class=3Dx_number>@NumDolg...................@</td>   
+  <td class=3Dx_number>@NumErr....................@</td>      
+  <td class=3Dx_number>@NumOther..................@</td>     
+  <td class=3Dx_number>@NumDepoUpr................@</td>   
+  <td class=3Dx_number>@NumKazn...................@</td>   
+  <td class=3Dx_number>@NumZalog..................@</td>   
+  <td class=3Dx_number>@NumEmission...............@</td> 
+  <td class=3Dx_number>@NumObrAll.................@</td>       
+  <td class=3Dx_number>@NumObrZalog...............@</td>       
+  <td class=3Dx_number>@NumObrTorgDepo............@</td>       
+  <td class=3Dx_number>@NumObrOgranKorpD..........@</td>       
+  <td class=3Dx_number>@NumObrZapret..............@</td>       
+  <td class=3Dx_number>@NumObrArest...............@</td>                 
+  <td class=3Dx_string>@OrgName...................@</td>   
+  <td class=3Dx_string>@3@</td>                
+  <td class=3Dx_string>@OrgINN.......@</td>                            
+  <td class=3Dx_string>@OrgKPP....................@</td>                                
+  <td class=3Dx_acc>@OrgOGRN...................@</td>                            
+  <td class=3Dx_string>@2@</td>       
+  <td class=3Dx_acc>@NumLicen..........@</td>           
+ </tr> 
+$ 
+
+<tr>
+ <td></td>                              
+</tr> 
+</table>
+</div>
+</body>
+</html>         
+
+
+&
+       
+#@SQL_1_4@  
+------=_NextPart_01C9A691.80E91F00
+Content-Location: sheet03.htm
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="windows-1251"
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml"
+xmlns:o=3D"urn:schemas-microsoft-com:office:office"
+xmlns:x=3D"urn:schemas-microsoft-com:office:excel"
+xmlns=3D"http:@sl@www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=3DContent-Type content=3D"text/html; charset=3Dwindows-1251">
+<link id=3DMain-File rel=3DMain-File href=3D"template.htm">
+<link rel=3DFile-List href=3Dfilelist.xml>
+<link rel=3DStylesheet href=3Dstylesheet.css>
+<style>
+@s@page
+        {margin:.39in .39in .39in .39in;
+        mso-header-margin:0in;
+        mso-footer-margin:0in;
+        mso-page-orientation:landscape;}
+</style>
+<xml>
+ <x:WorksheetOptions>
+  <x:FitToPage/>
+  <x:Print>
+   <x:ValidPrinterInfo/>
+   <x:PaperSizeIndex>9</x:PaperSizeIndex>
+   <x:FitHeight>9999</x:FitHeight>
+   <x:HorizontalResolution>600</x:HorizontalResolution>
+   <x:VerticalResolution>600</x:VerticalResolution>
+  </x:Print>
+  <x:Selected/>
+  // <x:DoNotDisplayGridlines/>    
+   <x:FrozenNoSplit/>
+   <x:SplitHorizontal>3</x:SplitHorizontal>              
+   <x:TopRowBottomPane>3</x:TopRowBottomPane>
+   <x:ActivePane>2</x:ActivePane>
+ </x:WorksheetOptions>
+</xml>
+</head>
+<body>
+<div id=3D"j_CrRRepo_506" align=3Dcenter x:publishsource=3D"Excel">
+<table border=3D0 cellpadding=3D0 cellspacing=3D0 width=3D3807>
+
+ <col width=3D100>      //1  
+ <col width=3D100>      //2 
+ <col width=3D100>      //3 
+ <col width=3D100>      //4 
+ <col width=3D100>      //5 
+ <col width=3D100>      //6 
+ <col width=3D100>      //7 
+ <col width=3D100>      //8 
+ <col width=3D100>      //9 
+ <col width=3D100>      //10 
+ <col width=3D100>      //11   
+ <col width=3D100>      //12  
+ <col width=3D100>      //13 
+ <col width=3D100>      //14 
+ <col width=3D100>      //15 
+ <col width=3D100>      //16 
+ <col width=3D100>      //17 
+ <col width=3D100>      //18 
+ <col width=3D100>      //19 
+ <col width=3D100>      //20 
+ <col width=3D100>      //21       
+       
+ <tr>    
+    <td colspan=3D11 class=3Dx_zagolovok_string>Подраздел 1.4. Балансовая стоимость вложений в эмиссионные ценные бумаги и инвестиционные паи паевых инвестиционных фондов, принадлежащие
+     кредитной организации на праве собственности (за исключением переданных кредитной организацией на возвратной основе без прекращения признания, в доверительное управление)</td>         
+ </tr>    
+ 
+ <tr>
+  <td class=3Dx_shapka_2>Номер строки</td>
+  <td class=3Dx_shapka_2>Наименование эмитента</td>    
+  <td class=3Dx_shapka_2>ИНН эмитента</td>      
+  <td class=3Dx_shapka_2>ОГРН эмитента</td>    
+  <td class=3Dx_shapka_2>КПП эмитента</td>    
+  <td class=3Dx_shapka_2>Код ОКСМ страны эмитента</td>  
+  <td class=3Dx_shapka_2>Код вида деятельности эмитента</td>               
+  <td class=3Dx_shapka_2>Код типа ценной бумаги</td>         
+  <td class=3Dx_shapka_2>Государственный регистрационный номер выпуска ценных бумаг или идентификационный номер выпуска ценных бумаг</td>      
+  <td class=3Dx_shapka_2>Код ISIN ценной бумаги</td>   
+  <td class=3Dx_shapka_2>Код валюты ценной бумаги</td>    
+  <td class=3Dx_shapka_2>Количество ценных бумаг, шт.</td>      
+  <td class=3Dx_shapka_2>Номинальная стоимость одной ценной бумаги, ед. валюты обязательства</td>        
+  <td class=3Dx_shapka_2>Балансовая стоимость ценных бумаг, тыс. руб.</td>         
+  <td class=3Dx_shapka_2>Номер балансового счета второго порядка</td>      
+  <td class=3Dx_shapka_2>Накопленный купонный доход, ед. валюты обязательства</td>        
+  <td class=3Dx_shapka_2>Переоценка ценных бумаг – отрицательная разница, тыс. руб.</td>          
+  <td class=3Dx_shapka_2>Переоценка ценных бумаг – положительная разница, тыс. руб.</td>            
+  <td class=3Dx_shapka_2>Уровень исходных данных в иерархии справедливой стоимости</td>              
+  <td class=3Dx_shapka_2>Категория качества</td>                
+  <td class=3Dx_shapka_2>Сформированный резерв на возможные потери, тыс. руб.</td>                  
+ </tr>
+ 
+ <tr>
+  <td class=3Dx_shapka_2>99</td>
+  <td class=3Dx_shapka_2>100</td>            
+  <td class=3Dx_shapka_2>101</td>
+  <td class=3Dx_shapka_2>102</td>
+  <td class=3Dx_shapka_2>103</td>              
+  <td class=3Dx_shapka_2>104</td>
+  <td class=3Dx_shapka_2>105</td>
+  <td class=3Dx_shapka_2>106</td>
+  <td class=3Dx_shapka_2>107</td>
+  <td class=3Dx_shapka_2>108</td>
+  <td class=3Dx_shapka_2>109</td>
+  <td class=3Dx_shapka_2>110</td>
+  <td class=3Dx_shapka_2>111</td>              
+  <td class=3Dx_shapka_2>112</td>
+  <td class=3Dx_shapka_2>113</td>
+  <td class=3Dx_shapka_2>114</td>
+  <td class=3Dx_shapka_2>115</td>
+  <td class=3Dx_shapka_2>116</td>
+  <td class=3Dx_shapka_2>117</td>      
+  <td class=3Dx_shapka_2>118</td>
+  <td class=3Dx_shapka_2>119</td>        
+ </tr>
+$T 
+ <tr>
+  <td class=3Dx_int>@Num1@</td>   
+  <td class=3Dx_string>@InstName.....@</td>   
+  <td class=3Dx_string>@INN..........@</td>     
+  <td class=3Dx_acc>@OGRN.........@</td>       
+  <td class=3Dx_string>@KPP..........@</td>     
+  <td class=3Dx_string>@1@</td>     
+  <td class=3Dx_string>@OKVED........@</td>               
+  <td class=3Dx_string>@SecType......@</td>             
+  <td class=3Dx_string>@RegNumber....@</td>     
+  <td class=3Dx_string>@ISIN.........@</td>         
+  <td class=3Dx_string>@FundCod3@</td>           
+  <td class=3Dx_int>@SecNum.......@</td>      
+  <td class=3Dx_number>@Nominal12....@</td>        
+  <td class=3Dx_number>@SumVlozh.....@</td>    
+  <td class=3Dx_string>@Acc@</td> 
+  <td class=3Dx_number>@NKD..........@</td>      
+  <td class=3Dx_number>@RevalOtr.....@</td>      
+  <td class=3Dx_number>@Reval........@</td>      
+  <td class=3Dx_string>@Portf........@</td>      
+  <td class=3Dx_string>@KatKach......@</td>      
+  <td class=3Dx_number>@Reserv.......@</td>                               
+ </tr> 
+$ 
+
+ <tr>
+  <td class=3Dx_int></td>   
+  <td class=3Dx_string></td>   
+  <td class=3Dx_string></td>     
+  <td class=3Dx_acc></td>       
+  <td class=3Dx_string></td>     
+  <td class=3Dx_string></td>      
+  <td class=3Dx_string></td>     
+  <td class=3Dx_string></td>             
+  <td class=3Dx_string></td>     
+  <td class=3Dx_string></td> 
+  <td class=3Dx_string></td>           
+  <td class=3Dx_number></td>      
+  <td class=3Dx_number></td>            
+  <td class=3Dx_number_bold>@SumVlozh.....@</td>    
+  <td class=3Dx_string></td>  
+  <td class=3Dx_number></td>      
+  <td class=3Dx_number></td>      
+  <td class=3Dx_number></td>      
+  <td class=3Dx_number></td>      
+  <td class=3Dx_string></td>      
+  <td class=3Dx_number></td>                         
+ </tr> 
+</table>
+</div>
+</body>
+</html>  
+&      
+#@SQL_3@  
+------=_NextPart_01C9A691.80E91F00
+Content-Location: sheet04.htm
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="windows-1251"
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml"
+xmlns:o=3D"urn:schemas-microsoft-com:office:office"
+xmlns:x=3D"urn:schemas-microsoft-com:office:excel"
+xmlns=3D"http:@sl@www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=3DContent-Type content=3D"text/html; charset=3Dwindows-1251">
+<link id=3DMain-File rel=3DMain-File href=3D"template.htm">
+<link rel=3DFile-List href=3Dfilelist.xml>
+<link rel=3DStylesheet href=3Dstylesheet.css>
+<style>
+@s@page
+        {margin:.39in .39in .39in .39in;
+        mso-header-margin:0in;
+        mso-footer-margin:0in;
+        mso-page-orientation:landscape;}
+</style>
+<xml>
+ <x:WorksheetOptions>
+  <x:FitToPage/>
+  <x:Print>
+   <x:ValidPrinterInfo/>
+   <x:PaperSizeIndex>9</x:PaperSizeIndex>
+   <x:FitHeight>9999</x:FitHeight>
+   <x:HorizontalResolution>600</x:HorizontalResolution>
+   <x:VerticalResolution>600</x:VerticalResolution>
+  </x:Print>
+  <x:Selected/>
+  // <x:DoNotDisplayGridlines/>    
+   <x:FrozenNoSplit/>
+   <x:SplitHorizontal>4</x:SplitHorizontal>              
+   <x:TopRowBottomPane>4</x:TopRowBottomPane>
+   <x:ActivePane>2</x:ActivePane>
+ </x:WorksheetOptions>
+</xml>
+</head>
+<body>
+<div id=3D"j_CrRRepo_506" align=3Dcenter x:publishsource=3D"Excel">
+<table border=3D0 cellpadding=3D0 cellspacing=3D0 width=3D3807>
+
+ <col width=3D100>      //1  
+ <col width=3D100>      //2 
+ <col width=3D100>      //3 
+ <col width=3D100>      //4 
+ <col width=3D100>      //5 
+ <col width=3D100>      //6 
+ <col width=3D100>      //7 
+ <col width=3D100>      //8 
+ <col width=3D100>      //9 
+ <col width=3D100>      //10 
+ <col width=3D100>      //11  
+ <col width=3D100>      //12  
+ <col width=3D100>      //13    
+ <col width=3D100>      //14   
+ <col width=3D100>      //15 
+ <col width=3D100>      //16  
+ <col width=3D100>      //17 
+ <col width=3D100>      //18 
+ <col width=3D100>      //19 
+ <col width=3D100>      //20 
+ <col width=3D100>      //21 
+ <col width=3D100>      //22  
+ <col width=3D100>      //23  
+ <col width=3D100>      //24    
+ <col width=3D100>      //25   
+      
+ <tr>    
+    <td colspan=3D11 class=3Dx_zagolovok_string>Раздел 3. Операции с ценными бумагами (кроме векселей), переданными кредитной организацией контрагентам на возвратной основе (репо, заем), в доверительное управление, 
+    принятыми кредитной организацией на возвратной основе (репо, заем), а также ценные бумаги, в отношении которых зафиксировано обременение и (или) ограничено распоряжение </td>          
+ </tr>      
+    
+ <tr>
+  <td rowspan=3D2 class=3Dx_shapka_2>Номер строки</td>
+  <td rowspan=3D2 class=3Dx_shapka_2>Наименование эмитента</td>    
+  <td rowspan=3D2 class=3Dx_shapka_2>ИНН эмитента</td>      
+  <td rowspan=3D2 class=3Dx_shapka_2>КПП эмитента</td>    
+  <td rowspan=3D2 class=3Dx_shapka_2>ОГРН эмитента</td>    
+  <td rowspan=3D2 class=3Dx_shapka_2>Код ОКСМ страны эмитента</td>         
+  <td rowspan=3D2 class=3Dx_shapka_2>Код типа ценной бумаги</td>
+  <td rowspan=3D2 class=3Dx_shapka_2>Государственный регистрационный номер выпуска цен-ных бумаг или иден-тификационный номер выпуска ценных бумаг</td>                                                 
+  <td rowspan=3D2 class=3Dx_shapka_2>Код ISIN ценной бумаги</td>           
+  <td rowspan=3D2 class=3Dx_shapka_2>Код валюты ценной бумаги</td>                                                   
+  <td rowspan=3D2 class=3Dx_shapka_2>Номинальная стоимость одной ценной бумаги, в ед. валюты номинала</td>                                                               
+  <td colspan=3D13 class=3Dx_shapka_2>Количество ценных бумаг, шт.</td>         
+  <td rowspan=3D2 class=3Dx_shapka_2>Примечание</td>                                                                 
+ </tr>
+  
+ <tr>     
+  <td class=3Dx_shapka_2>переданных по сделкам прямого репо</td>       
+  <td class=3Dx_shapka_2>переданных по сделкам займа</td>                 
+  <td class=3Dx_shapka_2>полученных по сделкам обратного репо</td>                   
+  <td class=3Dx_shapka_2>полученных по сделкам займа</td>                     
+  <td class=3Dx_shapka_2>переданных в доверительное управление</td>                       
+  <td class=3Dx_shapka_2>права из которых переданы в доверительное управление</td>                         
+  <td class=3Dx_shapka_2>переданных в залог по обязательствам кредитной организации</td>                           
+  <td class=3Dx_shapka_2>переданных в залог по обязательствам третьих лиц</td>                             
+  <td class=3Dx_shapka_2>принятых в залог</td>                               
+  <td class=3Dx_shapka_2>учитываемых на торговых (клиринговых) счетах депо</td>                                 
+  <td class=3Dx_shapka_2>ограничено распоряжение в связи с корпоративными  действиями</td>                                   
+  <td class=3Dx_shapka_2>введен запрет на осуществление операций</td>                                     
+  <td class=3Dx_shapka_2>под арестом</td>                                       
+ </tr>
+ 
+ <tr>
+  <td class=3Dx_shapka_2>210</td>
+  <td class=3Dx_shapka_2>211</td>
+  <td class=3Dx_shapka_2>212</td>
+  <td class=3Dx_shapka_2>213</td>
+  <td class=3Dx_shapka_2>214</td>
+  <td class=3Dx_shapka_2>215</td>
+  <td class=3Dx_shapka_2>216</td>
+  <td class=3Dx_shapka_2>217</td>            
+  <td class=3Dx_shapka_2>218</td>              
+  <td class=3Dx_shapka_2>219</td>                
+  <td class=3Dx_shapka_2>220</td>                  
+  <td class=3Dx_shapka_2>221</td>                
+  <td class=3Dx_shapka_2>222</td>   
+  <td class=3Dx_shapka_2>223</td>                
+  <td class=3Dx_shapka_2>224</td>                  
+  <td class=3Dx_shapka_2>225</td>                
+  <td class=3Dx_shapka_2>226</td>     
+  <td class=3Dx_shapka_2>227</td>                  
+  <td class=3Dx_shapka_2>228</td>                
+  <td class=3Dx_shapka_2>229</td>   
+  <td class=3Dx_shapka_2>230</td>                
+  <td class=3Dx_shapka_2>231</td>                  
+  <td class=3Dx_shapka_2>232</td>                
+  <td class=3Dx_shapka_2>233</td>       
+  <td class=3Dx_shapka_2>234</td>         
+ </tr>
+$T 
+ <tr>
+  <td class=3Dx_int>@Num@</td>   
+  <td class=3Dx_string>@InstName@</td>   
+  <td class=3Dx_string>@INN@</td>     
+  <td class=3Dx_string>@KPP@</td>     
+  <td class=3Dx_acc>@OGRN@</td>   
+  <td class=3Dx_string>@O@</td>     
+  <td class=3Dx_string>@SecType@</td>         
+  <td class=3Dx_string>@RegNumber@</td>       
+  <td class=3Dx_string>@ISIN@</td>     
+  <td class=3Dx_string>@FundCode@</td>      
+  <td class=3Dx_number>@Nominal@</td>                   
+  <td class=3Dx_number>@Repo@</td>       
+  <td class=3Dx_number>@RepoZaem@</td>         
+  <td class=3Dx_number>@RepoObr@</td>           
+  <td class=3Dx_number>@RepoObrZaem@</td>             
+  <td class=3Dx_number>@DoverUpr@</td>               
+  <td class=3Dx_number>@DoverUprPrav@</td>                 
+  <td class=3Dx_number>@ZalogKO@</td>                   
+  <td class=3Dx_number>@Zalog3Lic@</td>                     
+  <td class=3Dx_number>@Zalog@</td>                       
+  <td class=3Dx_number>@DepoAcc@</td>                         
+  <td class=3Dx_number>@OgranKorpD@</td>                           
+  <td class=3Dx_number>@Zapret@</td>                             
+  <td class=3Dx_number>@Arest@</td>                               
+  <td class=3Dx_number>@Comment@</td>                                 
+ </tr> 
+$ 
+ <tr>
+ <td></td>                                 
+ </tr> 
+</table>
+</div>
+</body>
+</html>  
+&
+#@SQLDrop@
+</table>
+</body>
+</html>
+   
+------=_NextPart_01C9A691.80E91F00
+Content-Location: filelist.xml
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/xml; charset="utf-8"
+
+<xml xmlns:o=3D"urn:schemas-microsoft-com:office:office">
+ <o:MainFile HRef=3D"template.htm"/>
+ <o:File HRef=3D"stylesheet.css"/>
+ <o:File HRef=3D"tabstrip.htm"/>
+$T
+ <o:File HRef=3D"sheet01.htm"/>
+$
+ <o:File HRef=3D"filelist.xml"/>
+</xml>
+------=_NextPart_01C9A691.80E91F00--
+------=_NextPart_01C9A691.80E91F00--
+
+&&
+&&
+%date!=Param{Дата отчёта на, dtDatetime, 0, , , , , , , 1, 1}
+
